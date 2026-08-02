@@ -31,6 +31,9 @@ acquisition:
   expected_active_sources: 5
 
 retrieval:  # Phase 3
+  # hybrid = BM25 + dense + cross-encoder (local/dev). Railway image sets
+  # MF_RETRIEVAL_MODE=bm25 to avoid torch OOM on Hobby RAM.
+  mode: hybrid
   embedding_model: BAAI/bge-small-en-v1.5
   reranker_model: BAAI/bge-reranker-base
   bm25_top_k: 20
@@ -38,6 +41,7 @@ retrieval:  # Phase 3
   rrf_k: 60
   rerank_top_k: 4
   confidence_tau: 0.35
+  bm25_confidence_tau: 0.05
   scheme_margin_epsilon: 0.05
   scheme_aliases:
     groww-nippon-india-value-fund-direct-growth:

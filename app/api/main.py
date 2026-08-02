@@ -72,7 +72,12 @@ try:  # pragma: no cover - exercised only when FastAPI is installed
     from app.api.rate_limit import PerIpRateLimitMiddleware
 
     def _warm_retrieval_models() -> None:
-        """Load embedding + reranker weights once so the first /ask is not a multi-minute stall."""
+        """Optionally warm embedding + reranker (skipped in BM25 deploy mode)."""
+        from core.retrieval.hybrid import retrieval_mode
+
+        if retrieval_mode() == "bm25":
+            logger.info("skipping model warm-up (MF_RETRIEVAL_MODE=bm25)")
+            return
         try:
             from sentence_transformers import CrossEncoder, SentenceTransformer
 

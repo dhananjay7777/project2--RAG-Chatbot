@@ -133,3 +133,45 @@ def test_tie_break_prefers_later_effective_date():
     newer.chunk.effective_date = date(2026, 7, 24)
     ordered = tie_break_reranked([older, newer])
     assert ordered[0].chunk.chunk_id == "n"
+
+
+def test_bm25_only_mode_returns_ok(monkeypatch: pytest.MonkeyPatch):
+    from core.retrieval.hybrid import HybridRetriever, _EmptyDenseStore, _PassthroughReranker, _ZeroEmbedder
+
+    monkeypatch.setenv("MF_RETRIEVAL_MODE", "bm25")
+    records = [
+        ChunkIndexRecord(
+            chunk_id="c1",
+            source_id="groww-nippon-india-value-fund-direct-growth",
+            scheme_name="Nippon India Value Fund Direct Growth",
+            text="Exit load 1% if redeemed within 30 days",
+            index_text="Exit load 1% if redeemed within 30 days nippon india value",
+            fact_tags=["exit_load"],
+            content_hash="abc",
+            status="active",
+        )
+    ]
+    bm25 = build_bm25(records)
+    chunk = _chunk(
+        "c1",
+        "groww-nippon-india-value-fund-direct-growth",
+        "Exit load 1% if redeemed within 30 days",
+        tags=["exit_load"],
+    )
+    retriever = HybridRetriever(
+        bm25=bm25,
+        dense=_EmptyDenseStore(),
+        chunk_by_id={
+            "c1": ScoredChunk(
+                chunk=chunk,
+                source_id="groww-nippon-india-value-fund-direct-growth",
+                scheme_name="Nippon India Value Fund Direct Growth",
+            )
+        },
+        embedder=_ZeroEmbedder(),
+        reranker=_PassthroughReranker(),
+        settings={"bm25_top_k": 5, "rerank_top_k": 4, "bm25_confidence_tau": 0.05, "scheme_margin_epsilon": 0.05},
+    )
+    result = retriever.retrieve("What is the exit load on Nippon India Value Fund Direct Growth?")
+    assert result.status == RetrievalStatus.OK
+    assert result.chunks and result.chunks[0].chunk.chunk_id == "c1"

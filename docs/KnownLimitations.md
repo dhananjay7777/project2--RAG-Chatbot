@@ -28,6 +28,8 @@ Honest scope for the Mutual Fund FAQ Assistant (facts-only RAG over five Groww p
 - Refusals and performance redirects skip Groq.
 - Public demo: **Vercel** (static UI) + **Railway** (FastAPI). Ask-time serving never
   live-fetches Groww; it reads the last promoted `data/` artifacts only.
+- Railway deploy uses **BM25-only** retrieval (`MF_RETRIEVAL_MODE=bm25`) to stay within
+  Hobby RAM; local/dev keeps hybrid BM25 + dense + `bge-reranker-base`.
 - Per-IP rate limit (~30 `/ask` calls per hour) bounds LLM cost.
 
 ## Advanced ratios

@@ -1,7 +1,7 @@
 # Deploy image for Railway (FastAPI + read-only Phase 9 corpus/index).
 # Never bake secrets: .env is excluded via .dockerignore.
-# Keep the compressed image under Railway Hobby's ~4 GB limit:
-# CPU torch only, no streamlit/chromadb/pytest, no HF weights baked in.
+# Hobby constraints: stay under ~4 GB image size and avoid OOM at boot by
+# running BM25-only retrieval (no torch / HF weights).
 
 FROM python:3.11-slim-bookworm AS builder
 
@@ -17,9 +17,7 @@ RUN apt-get update \
 
 COPY requirements.api.txt .
 
-# CPU torch first (much smaller than the CUDA default wheel), then API deps.
 RUN pip install --upgrade pip \
-    && pip install --prefix=/install torch --index-url https://download.pytorch.org/whl/cpu \
     && pip install --prefix=/install -r requirements.api.txt
 
 FROM python:3.11-slim-bookworm
@@ -27,11 +25,9 @@ FROM python:3.11-slim-bookworm
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    HF_HOME=/app/.cache/huggingface \
-    TRANSFORMERS_CACHE=/app/.cache/huggingface \
     MF_HEALTH_STRICT=1 \
-    PATH="/usr/local/bin:${PATH}" \
-    PYTHONPATH="/usr/local/lib/python3.11/site-packages"
+    MF_RETRIEVAL_MODE=bm25 \
+    PATH="/usr/local/bin:${PATH}"
 
 WORKDIR /app
 
@@ -48,11 +44,7 @@ RUN test -f data/index/index_manifest.json \
     && (test -d data/index/chroma || test -f data/index/dense_vectors.pkl) \
     && test -f data/processed/chunks.jsonl
 
-# Do NOT download embedding/reranker weights here — they push the image over
-# Railway Hobby's size limit. Lifespan warm-up in app.api.main loads them at boot.
-
 RUN useradd --create-home --uid 10001 appuser \
-    && mkdir -p /app/.cache/huggingface \
     && chown -R appuser:appuser /app
 USER appuser
 

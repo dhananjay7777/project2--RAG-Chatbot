@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
+from typing import Any, Sequence
 
 from core.retrieval.gate import apply_confidence_gate, tie_break_reranked
 from core.retrieval.models import RetrievalResult, RetrievalStatus, ScoredChunk
@@ -20,6 +22,47 @@ from ingest.processing.writer import load_chunks
 from policy.loader import load_registry
 
 logger = logging.getLogger(__name__)
+
+
+def retrieval_mode() -> str:
+    """`hybrid` (default) or `bm25` for memory-constrained hosts (Railway Hobby)."""
+    env = os.getenv("MF_RETRIEVAL_MODE", "").strip().lower()
+    if env:
+        return "bm25" if env in {"bm25", "light"} else env
+    configured = str(retrieval_settings().get("mode", "hybrid")).strip().lower()
+    return "bm25" if configured in {"bm25", "light"} else configured
+
+
+class _ZeroEmbedder:
+    """No-op embedder for BM25-only deploy (avoids loading sentence-transformers)."""
+
+    def encode_queries(self, texts: Sequence[str]) -> list[list[float]]:
+        return [[0.0] for _ in texts]
+
+    def encode_passages(self, texts: Sequence[str]) -> list[list[float]]:
+        return [[0.0] for _ in texts]
+
+
+class _EmptyDenseStore:
+    def upsert(self, records: Sequence[Any], embeddings: Sequence[Sequence[float]]) -> None:
+        return None
+
+    def delete_ids(self, chunk_ids: Sequence[str]) -> None:
+        return None
+
+    def query_dense(
+        self,
+        query_embedding: Sequence[float],
+        *,
+        top_k: int,
+        where: dict[str, Any] | None = None,
+    ) -> list[tuple[str, float]]:
+        return []
+
+
+class _PassthroughReranker:
+    def score_pairs(self, query: str, passages: Sequence[str]) -> list[float]:
+        return [0.0 for _ in passages]
 
 
 class HybridRetriever:
@@ -61,15 +104,22 @@ class HybridRetriever:
         _idx_root, _chroma_dir, bm25_path = index_paths(index_root)
         idx_root = _idx_root
         retr = retrieval_settings()
-        embedder = embedder or SentenceTransformerEmbedder(
-            str(retr.get("embedding_model", "BAAI/bge-small-en-v1.5"))
-        )
-        reranker = reranker or CrossEncoderReranker(
-            str(retr.get("reranker_model", "BAAI/bge-reranker-base"))
-        )
+        light = retrieval_mode() == "bm25"
+        if light:
+            logger.info("retrieval mode=bm25 (no embedding/reranker models)")
+            embedder = embedder or _ZeroEmbedder()
+            reranker = reranker or _PassthroughReranker()
+            dense: DenseVectorStore = _EmptyDenseStore()
+        else:
+            embedder = embedder or SentenceTransformerEmbedder(
+                str(retr.get("embedding_model", "BAAI/bge-small-en-v1.5"))
+            )
+            reranker = reranker or CrossEncoderReranker(
+                str(retr.get("reranker_model", "BAAI/bge-reranker-base"))
+            )
+            dense = create_dense_store(idx_root)
 
         bm25 = load_bm25(bm25_path)
-        dense = create_dense_store(idx_root)
         records = build_index_records(load_chunks(proc_root))
         chunk_by_id: dict[str, ScoredChunk] = {}
         for rec in records:
@@ -132,6 +182,9 @@ class HybridRetriever:
             )
 
         inference = infer_scheme(q)
+        if retrieval_mode() == "bm25":
+            return self._retrieve_bm25_only(q, inference)
+
         bm25_top_k = int(self._settings.get("bm25_top_k", 20))
         dense_top_k = int(self._settings.get("dense_top_k", 20))
         rrf_k = int(self._settings.get("rrf_k", 60))
@@ -216,6 +269,78 @@ class HybridRetriever:
             status=RetrievalStatus.OK,
             query=q,
             chunks=reranked,
+            inferred_source_id=inference.source_id,
+            inferred_fact_tags=inference.fact_tags,
+        )
+
+    def _retrieve_bm25_only(self, q: str, inference: QueryInference) -> RetrievalResult:
+        """Lexical-only path for low-RAM hosts (no torch / HF weights)."""
+        bm25_top_k = int(self._settings.get("bm25_top_k", 20))
+        rerank_top_k = int(self._settings.get("rerank_top_k", 4))
+        tau = float(self._settings.get("bm25_confidence_tau", 0.05))
+        epsilon = float(self._settings.get("scheme_margin_epsilon", 0.05))
+
+        bm25_hits = self._bm25.search(q, top_k=bm25_top_k)
+        bm25_ids = self._filter_active([cid for cid, _ in bm25_hits])
+        if inference.source_id and inference.scheme_confident:
+            bm25_ids = self._filter_source(bm25_ids, inference.source_id)
+        bm25_ids = self._post_filter_fact_tags(bm25_ids, inference.fact_tags)
+        score_map = {cid: float(score) for cid, score in bm25_hits}
+
+        candidates: list[ScoredChunk] = []
+        for rank, cid in enumerate(bm25_ids, start=1):
+            base = self._chunk_by_id.get(cid)
+            if base is None:
+                continue
+            candidates.append(
+                ScoredChunk(
+                    chunk=base.chunk,
+                    bm25_rank=rank,
+                    rrf_score=score_map.get(cid, 0.0),
+                    source_id=base.source_id,
+                    scheme_name=base.scheme_name,
+                )
+            )
+
+        if not candidates:
+            return RetrievalResult(
+                status=RetrievalStatus.NO_ANSWER,
+                query=q,
+                reason="no_candidates",
+                inferred_source_id=inference.source_id,
+                inferred_fact_tags=inference.fact_tags,
+            )
+
+        raw_scores = [score_map.get(c.chunk.chunk_id, 0.0) for c in candidates]
+        max_score = max(raw_scores)
+        min_score = min(raw_scores)
+        span = max_score - min_score
+        for item in candidates:
+            raw = score_map.get(item.chunk.chunk_id, 0.0)
+            # BM25Okapi can be negative; keep a relative 0..1 score for the gate.
+            item.rerank_score = 1.0 if span <= 1e-12 else (raw - min_score) / span
+
+        ranked = tie_break_reranked(candidates)[:rerank_top_k]
+        status, reason = apply_confidence_gate(
+            ranked,
+            tau=tau,
+            scheme_margin_epsilon=epsilon,
+            scheme_confident=inference.scheme_confident,
+            ambiguous_multi_asset=inference.ambiguous_multi_asset,
+        )
+        if status != RetrievalStatus.OK:
+            return RetrievalResult(
+                status=status,
+                query=q,
+                chunks=[],
+                reason=reason,
+                inferred_source_id=inference.source_id,
+                inferred_fact_tags=inference.fact_tags,
+            )
+        return RetrievalResult(
+            status=RetrievalStatus.OK,
+            query=q,
+            chunks=ranked,
             inferred_source_id=inference.source_id,
             inferred_fact_tags=inference.fact_tags,
         )
