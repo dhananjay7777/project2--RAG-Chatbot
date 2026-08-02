@@ -1,0 +1,19 @@
+# Exact-URL allowlist only. Domain wildcards are forbidden (Phase 0 / P0-01).
+# Cardinality must be exactly 5 (P0-02).
+
+allowlist_mode: exact_url
+expected_count: 5
+
+urls:
+  - https://groww.in/mutual-funds/nippon-india-value-fund-direct-growth
+  - https://groww.in/mutual-funds/tata-multi-asset-allocation-fund-direct-growth
+  - https://groww.in/mutual-funds/kotak-multi-asset-allocation-fund-direct-growth
+  - https://groww.in/mutual-funds/franklin-india-multi-cap-fund-direct-growth
+  - https://groww.in/mutual-funds/samco-mid-cap-fund-direct-growth
+
+# Reject these patterns if present in any policy edit
+forbidden_patterns:
+  - "*.groww.in"
+  - "groww.in/*"
+  - "https://groww.in/"
+  - "http://"

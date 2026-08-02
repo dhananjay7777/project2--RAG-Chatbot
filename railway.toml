@@ -1,0 +1,13 @@
+# Railway — FastAPI backend (Phase 10)
+# Dashboard: New Project → Deploy from GitHub → set variables below.
+# Root Dockerfile is used automatically when present.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

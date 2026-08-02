@@ -1,0 +1,174 @@
+# Human-verified Fact Card seeds (Pass C).
+# verified_by_human is true only when extraction matches this seed (or explicit null).
+# Source: docs/Corpus.md — re-verify after live re-fetch.
+
+version: 1
+
+in_scope_keys:
+  - expense_ratio
+  - exit_load
+  - min_sip
+  - min_lumpsum
+  - risk_rating
+  - category
+  - aum
+  - nav
+  - benchmark
+  - fund_manager
+  - launch_date
+  - investment_objective
+  - stamp_duty
+  - tax_implication_text
+  - top_5_concentration
+  - top_20_concentration
+  - pe_ratio
+  - pb_ratio
+  - alpha
+  - beta
+  - sharpe
+  - sortino
+
+# Keys that may be null without blocking promotion
+nullable_ok:
+  - benchmark
+  - top_5_concentration
+  - top_20_concentration
+  - pe_ratio
+  - pb_ratio
+  - alpha
+  - beta
+  - sharpe
+  - sortino
+  - fund_manager
+  - investment_objective
+
+schemes:
+  groww-nippon-india-value-fund-direct-growth:
+    scheme_name: Nippon India Value Fund Direct Growth
+    facts:
+      expense_ratio: "1.27%"
+      exit_load: "For units more than 10% of the investments, an exit load of 1% if redeemed within 12 months."
+      min_sip: "₹100"
+      min_lumpsum: "₹500"
+      risk_rating: "Very High Risk"
+      category: "Equity — Value Oriented"
+      aum: "₹8,962.36 Cr"
+      nav: "₹244.42 (as of 24 Jul 2026)"
+      benchmark: "NIFTY 500 Total Return Index"
+      launch_date: "30 Jun 1995"
+      fund_manager: "Amber Singhania"
+      stamp_duty: "0.005%"
+      tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
+      investment_objective: "The scheme seeks capital appreciation and/or to generate consistent returns by actively investing in equity/ equity related securities predominantly into value stocks."
+      top_5_concentration: null
+      top_20_concentration: null
+      pe_ratio: null
+      pb_ratio: null
+      alpha: null
+      beta: null
+      sharpe: null
+      sortino: null
+
+  groww-tata-multi-asset-allocation-fund-direct-growth:
+    scheme_name: Tata Multi Asset Allocation Fund Direct Growth
+    facts:
+      expense_ratio: "0.62%"
+      exit_load: "Exit load of 0.50%, if redeemed within 30 days."
+      min_sip: "₹100"
+      min_lumpsum: "₹5,000"
+      risk_rating: "Very High Risk"
+      category: "Hybrid — Multi Asset Allocation"
+      aum: "₹5,154.54 Cr"
+      nav: "₹27.95 (as of 24 Jul 2026)"
+      benchmark: null
+      launch_date: "30 Jun 1995"
+      fund_manager: null
+      stamp_duty: "0.005%"
+      tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
+      investment_objective: null
+      top_5_concentration: null
+      top_20_concentration: null
+      pe_ratio: null
+      pb_ratio: null
+      alpha: null
+      beta: null
+      sharpe: null
+      sortino: null
+
+  groww-kotak-multi-asset-allocation-fund-direct-growth:
+    scheme_name: Kotak Multi Asset Allocation Fund Direct Growth
+    facts:
+      expense_ratio: "0.61%"
+      exit_load: "Exit Load for units in excess of 30% of the investment,1% will be charged for redemption within 1 year."
+      min_sip: "₹100"
+      min_lumpsum: "₹100"
+      risk_rating: "Very High Risk"
+      category: "Hybrid — Multi Asset Allocation"
+      aum: "₹14,308.51 Cr"
+      nav: "₹16.17 (as of 24 Jul 2026)"
+      benchmark: null
+      launch_date: "05 Aug 1994"
+      fund_manager: null
+      stamp_duty: "0.005%"
+      tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
+      investment_objective: null
+      top_5_concentration: null
+      top_20_concentration: null
+      pe_ratio: null
+      pb_ratio: null
+      alpha: null
+      beta: null
+      sharpe: null
+      sortino: null
+
+  groww-franklin-india-multi-cap-fund-direct-growth:
+    scheme_name: Franklin India Multi Cap Fund Direct Growth
+    facts:
+      expense_ratio: "0.93%"
+      exit_load: "Exit load of 1%, if redeemed within 1 year."
+      min_sip: "₹500"
+      min_lumpsum: "₹5,000"
+      risk_rating: "Very High Risk"
+      category: "Equity — Multi Cap"
+      aum: "₹5,029.48 Cr"
+      nav: "₹10.94 (as of 24 Jul 2026)"
+      benchmark: "Nifty 500 Multicap 50:25:25 Total Return Index"
+      launch_date: "19 Feb 1996"
+      fund_manager: null
+      stamp_duty: "0.005%"
+      tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
+      investment_objective: null
+      top_5_concentration: null
+      top_20_concentration: null
+      pe_ratio: null
+      pb_ratio: null
+      alpha: null
+      beta: null
+      sharpe: null
+      sortino: null
+
+  groww-samco-mid-cap-fund-direct-growth:
+    scheme_name: Samco Mid Cap Fund Direct Growth
+    facts:
+      expense_ratio: "1.87%"
+      exit_load: "Exit load of 1%, if redeemed within 30 days."
+      min_sip: "₹250"
+      min_lumpsum: "₹5,000"
+      risk_rating: "Very High Risk"
+      category: "Equity — Mid Cap"
+      aum: "₹78.64 Cr"
+      nav: "₹9.79 (as of 24 Jul 2026)"
+      benchmark: "NIFTY Midcap 150 Total Return Index"
+      launch_date: "14 Sep 2021"
+      fund_manager: null
+      stamp_duty: "0.005%"
+      tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
+      investment_objective: null
+      top_5_concentration: null
+      top_20_concentration: null
+      pe_ratio: null
+      pb_ratio: null
+      alpha: null
+      beta: null
+      sharpe: null
+      sortino: null

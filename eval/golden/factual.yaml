@@ -1,0 +1,383 @@
+version: 1
+set: factual
+cases:
+- id: fact-001
+  query: What is the expense ratio of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.27%
+- id: fact-002
+  query: Tell me the TER / expense ratio for Nippon India Value Fund Direct Growth.
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.27%
+- id: fact-003
+  query: Expense ratio for Nippon India Value Fund Direct Growth please.
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.27%
+- id: fact-004
+  query: What is the exit load on Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: For units more than 10% of the investments, an e
+- id: fact-005
+  query: Exit load for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: For units more than 10% of the investments, an e
+- id: fact-006
+  query: What exit load applies to Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: For units more than 10% of the investments, an e
+- id: fact-007
+  query: What is the minimum SIP for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹100
+- id: fact-008
+  query: Minimum SIP amount in Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹100
+- id: fact-009
+  query: What is the min SIP for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹100
+- id: fact-010
+  query: What is the AUM of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹8,962.36 Cr
+- id: fact-011
+  query: AUM for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹8,962.36 Cr
+- id: fact-012
+  query: What assets under management does Nippon India Value Fund Direct Growth report?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹8,962.36 Cr
+- id: fact-013
+  query: What is the NAV of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹244.42
+- id: fact-014
+  query: Current NAV for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹244.42
+- id: fact-015
+  query: NAV of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹244.42
+- id: fact-016
+  query: What is the category of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Value Oriented
+- id: fact-017
+  query: Which category is Nippon India Value Fund Direct Growth in?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Value Oriented
+- id: fact-018
+  query: Fund category for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Value Oriented
+- id: fact-019
+  query: What is the risk rating of Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-020
+  query: Risk rating for Nippon India Value Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-021
+  query: How is Nippon India Value Fund Direct Growth rated for risk on Groww?
+  expected_route: FACTUAL
+  expected_source_id: groww-nippon-india-value-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-022
+  query: What is the expense ratio of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.87%
+- id: fact-023
+  query: Tell me the TER / expense ratio for Samco Mid Cap Fund Direct Growth.
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.87%
+- id: fact-024
+  query: Expense ratio for Samco Mid Cap Fund Direct Growth please.
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 1.87%
+- id: fact-025
+  query: What is the exit load on Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 30 days.
+- id: fact-026
+  query: Exit load for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 30 days.
+- id: fact-027
+  query: What exit load applies to Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 30 days.
+- id: fact-028
+  query: What is the minimum SIP for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹250
+- id: fact-029
+  query: Minimum SIP amount in Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹250
+- id: fact-030
+  query: What is the min SIP for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹250
+- id: fact-031
+  query: What is the AUM of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹78.64 Cr
+- id: fact-032
+  query: AUM for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹78.64 Cr
+- id: fact-033
+  query: What assets under management does Samco Mid Cap Fund Direct Growth report?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹78.64 Cr
+- id: fact-034
+  query: What is the NAV of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹9.79
+- id: fact-035
+  query: Current NAV for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹9.79
+- id: fact-036
+  query: NAV of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹9.79
+- id: fact-037
+  query: What is the category of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Mid Cap
+- id: fact-038
+  query: Which category is Samco Mid Cap Fund Direct Growth in?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Mid Cap
+- id: fact-039
+  query: Fund category for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Mid Cap
+- id: fact-040
+  query: What is the risk rating of Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-041
+  query: Risk rating for Samco Mid Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-042
+  query: How is Samco Mid Cap Fund Direct Growth rated for risk on Groww?
+  expected_route: FACTUAL
+  expected_source_id: groww-samco-mid-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-043
+  query: What is the expense ratio of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 0.93%
+- id: fact-044
+  query: Tell me the TER / expense ratio for Franklin India Multi Cap Fund Direct
+    Growth.
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 0.93%
+- id: fact-045
+  query: Expense ratio for Franklin India Multi Cap Fund Direct Growth please.
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: expense_ratio
+  expected_value_contains: 0.93%
+- id: fact-046
+  query: What is the exit load on Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 1 year.
+- id: fact-047
+  query: Exit load for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 1 year.
+- id: fact-048
+  query: What exit load applies to Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: exit_load
+  expected_value_contains: Exit load of 1%, if redeemed within 1 year.
+- id: fact-049
+  query: What is the minimum SIP for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹500
+- id: fact-050
+  query: Minimum SIP amount in Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹500
+- id: fact-051
+  query: What is the min SIP for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: min_sip
+  expected_value_contains: ₹500
+- id: fact-052
+  query: What is the AUM of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹5,029.48 Cr
+- id: fact-053
+  query: AUM for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹5,029.48 Cr
+- id: fact-054
+  query: What assets under management does Franklin India Multi Cap Fund Direct Growth
+    report?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: aum
+  expected_value_contains: ₹5,029.48 Cr
+- id: fact-055
+  query: What is the NAV of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹10.94
+- id: fact-056
+  query: Current NAV for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹10.94
+- id: fact-057
+  query: NAV of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: nav
+  expected_value_contains: ₹10.94
+- id: fact-058
+  query: What is the category of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Multi Cap
+- id: fact-059
+  query: Which category is Franklin India Multi Cap Fund Direct Growth in?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Multi Cap
+- id: fact-060
+  query: Fund category for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: category
+  expected_value_contains: Equity — Multi Cap
+- id: fact-061
+  query: What is the risk rating of Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-062
+  query: Risk rating for Franklin India Multi Cap Fund Direct Growth?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk
+- id: fact-063
+  query: How is Franklin India Multi Cap Fund Direct Growth rated for risk on Groww?
+  expected_route: FACTUAL
+  expected_source_id: groww-franklin-india-multi-cap-fund-direct-growth
+  fact_key: risk_rating
+  expected_value_contains: Very High Risk

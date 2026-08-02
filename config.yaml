@@ -1,0 +1,91 @@
+# Mutual Fund FAQ Assistant — Phase 0 configuration
+# Later phases may add keys; do not put secrets here (use .env).
+
+project:
+  name: mf-faq-assistant
+  disclaimer: "Facts-only. No investment advice."
+  phase_complete: 10
+
+corpus:
+  allowlist_mode: exact_url
+  expected_source_count: 5
+  policy_dir: policy
+  registry_file: policy/source_registry.yaml
+  allowlist_file: policy/source_allowlist.yaml
+
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  data_index: data/index
+  docs: docs
+
+acquisition:
+  user_agent: "MF-FAQ-Assistant/1.0 (facts-only educational project)"
+  request_timeout_seconds: 30
+  retries: 3
+  retry_backoff_seconds: 1
+  min_host_interval_seconds: 2
+  minimum_content_bytes: 1000
+  require_robots_check: true
+  allow_headless_fallback: false
+  expected_active_sources: 5
+
+retrieval:  # Phase 3
+  embedding_model: BAAI/bge-small-en-v1.5
+  reranker_model: BAAI/bge-reranker-base
+  bm25_top_k: 20
+  dense_top_k: 20
+  rrf_k: 60
+  rerank_top_k: 4
+  confidence_tau: 0.35
+  scheme_margin_epsilon: 0.05
+  scheme_aliases:
+    groww-nippon-india-value-fund-direct-growth:
+      - Nippon Value Direct
+      - Nippon India Value Direct
+    groww-tata-multi-asset-allocation-fund-direct-growth:
+      - Tata Multi Asset Direct
+    groww-kotak-multi-asset-allocation-fund-direct-growth:
+      - Kotak Multi Asset Direct
+    groww-franklin-india-multi-cap-fund-direct-growth:
+      - Franklin Multi Cap Direct
+    groww-samco-mid-cap-fund-direct-growth:
+      - Samco Mid Cap Direct
+
+llm:
+  provider: groq
+
+generation:  # Phase 5 — Groq chat model for phrasing (temp 0)
+  model: llama-3.3-70b-versatile
+  temperature: 0
+  max_sentences: 3
+
+router:  # Phase 4
+  max_query_chars: 500
+  tier2_min_factual_confidence: 0.75
+  tier2_model: llama-3.1-8b-instant
+
+ui:  # Phase 7 placeholders
+  max_input_chars: 500
+  example_questions:
+    - "What is the exit load on Nippon India Value Fund Direct Growth?"
+    - "What is the minimum SIP for Samco Mid Cap Fund Direct Growth?"
+    - "Should I invest in Tata Multi Asset Allocation Fund?"
+
+freshness_sla_days:  # Phase 6 / 9
+  expense_ratio: 7
+  nav: 7
+  aum: 7
+  exit_load: 30
+  min_sip: 30
+  benchmark: 30
+  fund_manager: 90
+  investment_objective: 90
+  category: 90
+
+deploy:  # Phase 10 — Railway API + Vercel UI
+  rate_limit_per_ip_per_hour: 30
+  # Comma-separated overrides via CORS_ORIGINS env (preferred in production).
+  cors_origins: []
+  frontend: vercel
+  backend: railway

@@ -1,0 +1,71 @@
+{
+  "metrics": {
+    "retrieval_recall_at_5": null,
+    "exact_fact_accuracy": 0.9206349206349206,
+    "citation_validity": 1.0,
+    "refusal_recall": 1.0,
+    "refusal_precision": 1.0,
+    "constraint_compliance": 1.0,
+    "hallucinated_number_rate": 0.0,
+    "p95_latency_ms": 3181.7999999999997,
+    "cost_per_query_usd": 0.0,
+    "n_cases": 133.0,
+    "route_accuracy": 1.0
+  },
+  "gates": {
+    "citation_validity": true,
+    "constraint_compliance": true,
+    "hallucinated_number_rate": true,
+    "refusal_recall": true,
+    "refusal_precision": true,
+    "exact_fact_accuracy": false
+  },
+  "passed": false,
+  "meta": {
+    "sets": "all",
+    "n": 133,
+    "confusion": {},
+    "compliance_critical": [
+      "citation_validity",
+      "constraint_compliance",
+      "hallucinated_number_rate"
+    ],
+    "failed_cases": [
+      {
+        "id": "fact-004",
+        "set": "factual",
+        "errors": [
+          "missing expected value 'For units more than 10% of the investments, an e'"
+        ]
+      },
+      {
+        "id": "fact-025",
+        "set": "factual",
+        "errors": [
+          "missing expected value 'Exit load of 1%, if redeemed within 30 days.'"
+        ]
+      },
+      {
+        "id": "fact-027",
+        "set": "factual",
+        "errors": [
+          "missing expected value 'Exit load of 1%, if redeemed within 30 days.'"
+        ]
+      },
+      {
+        "id": "fact-046",
+        "set": "factual",
+        "errors": [
+          "missing expected value 'Exit load of 1%, if redeemed within 1 year.'"
+        ]
+      },
+      {
+        "id": "fact-048",
+        "set": "factual",
+        "errors": [
+          "missing expected value 'Exit load of 1%, if redeemed within 1 year.'"
+        ]
+      }
+    ]
+  }
+}

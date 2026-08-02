@@ -1,0 +1,61 @@
+# Frozen source registry — must match source_allowlist.yaml 1:1 (cardinality == 5).
+# Adding/removing/rewriting a URL requires an architecture revision.
+
+sources:
+  - source_id: groww-nippon-india-value-fund-direct-growth
+    url: https://groww.in/mutual-funds/nippon-india-value-fund-direct-growth
+    publisher: Groww
+    amc: Nippon India Mutual Fund
+    authority_tier: 1
+    doc_type: GROWW_SCHEME_PAGE
+    scheme_names:
+      - Nippon India Value Fund Direct Growth
+    status: active
+    default_citation_label: Nippon India Value Fund Direct Growth — Groww
+
+  - source_id: groww-tata-multi-asset-allocation-fund-direct-growth
+    url: https://groww.in/mutual-funds/tata-multi-asset-allocation-fund-direct-growth
+    publisher: Groww
+    amc: Tata Mutual Fund
+    authority_tier: 1
+    doc_type: GROWW_SCHEME_PAGE
+    scheme_names:
+      - Tata Multi Asset Allocation Fund Direct Growth
+    status: active
+    default_citation_label: Tata Multi Asset Allocation Fund Direct Growth — Groww
+
+  - source_id: groww-kotak-multi-asset-allocation-fund-direct-growth
+    url: https://groww.in/mutual-funds/kotak-multi-asset-allocation-fund-direct-growth
+    publisher: Groww
+    amc: Kotak Mahindra Mutual Fund
+    authority_tier: 1
+    doc_type: GROWW_SCHEME_PAGE
+    scheme_names:
+      - Kotak Multi Asset Allocation Fund Direct Growth
+    status: active
+    default_citation_label: Kotak Multi Asset Allocation Fund Direct Growth — Groww
+
+  - source_id: groww-franklin-india-multi-cap-fund-direct-growth
+    url: https://groww.in/mutual-funds/franklin-india-multi-cap-fund-direct-growth
+    publisher: Groww
+    amc: Franklin Templeton Mutual Fund
+    authority_tier: 1
+    doc_type: GROWW_SCHEME_PAGE
+    scheme_names:
+      - Franklin India Multi Cap Fund Direct Growth
+    status: active
+    default_citation_label: Franklin India Multi Cap Fund Direct Growth — Groww
+
+  - source_id: groww-samco-mid-cap-fund-direct-growth
+    url: https://groww.in/mutual-funds/samco-mid-cap-fund-direct-growth
+    publisher: Groww
+    amc: Samco Mutual Fund
+    authority_tier: 1
+    doc_type: GROWW_SCHEME_PAGE
+    scheme_names:
+      - Samco Mid Cap Fund Direct Growth
+    status: active
+    default_citation_label: Samco Mid Cap Fund Direct Growth — Groww
+
+# Used when refusal/redirect cannot identify a scheme (Architecture § Phase 4)
+default_citation_source_id: groww-nippon-india-value-fund-direct-growth

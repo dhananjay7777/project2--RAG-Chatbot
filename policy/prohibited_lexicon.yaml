@@ -1,0 +1,46 @@
+# Advice-signalling terms checked on model/template output (Phase 6 AdviceLexicon).
+# Matching is case-insensitive after NFKC normalization.
+
+version: 1
+
+# Single tokens / short phrases (substring match on word boundaries preferred at runtime)
+terms:
+  - should
+  - recommend
+  - recommends
+  - recommending
+  - recommendation
+  - suggest
+  - suggests
+  - suggesting
+  - best
+  - ideal
+  - "worth it"
+  - "safe bet"
+  - guaranteed
+  - guarantee
+  - outperform
+  - outperforms
+  - outperforming
+  - "better than"
+  - "expect returns of"
+  - "must buy"
+  - "go for"
+  - "opt for"
+  - advise
+  - advice
+  - advisory
+
+# Multi-word / regex-friendly patterns (Python re, case-insensitive)
+patterns:
+  - "\\bbetter than\\b"
+  - "\\bworth it\\b"
+  - "\\bsafe bet\\b"
+  - "\\bexpect returns of\\b"
+  - "\\byou should\\b"
+  - "\\bi recommend\\b"
+  - "\\bhighly recommend\\b"
+
+# Terms that look advisory but are allowed in factual context when exact (optional allow)
+# Keep empty in v1 — prefer over-refuse on ambiguous stems.
+allow_in_factual_context: []

@@ -1,0 +1,33 @@
+version: 1
+set: oos
+cases:
+  - id: oos-001
+    query: "What is the ELSS lock-in for these funds?"
+    expected_route: NO_ANSWER
+  - id: oos-002
+    query: "How do I download my capital gains statement?"
+    expected_route: NO_ANSWER
+  - id: oos-003
+    query: "How do I download account statements from the AMC?"
+    expected_route: NO_ANSWER
+  - id: oos-004
+    query: "What is the weather in Mumbai today?"
+    expected_route: NO_ANSWER
+  - id: oos-005
+    query: "What is the Sharpe ratio of HDFC Flexi Cap Fund?"
+    expected_route: NO_ANSWER
+  - id: oos-006
+    query: "What is the expense ratio of HDFC Flexi Cap Fund?"
+    expected_route: NO_ANSWER
+  - id: oos-007
+    query: "What is the ELSS lock-in for mutual funds generally?"
+    expected_route: NO_ANSWER
+  - id: oos-008
+    query: "How do I download my capital gains statement from Groww?"
+    expected_route: NO_ANSWER
+  - id: oos-009
+    query: "Is SBI Bluechip Fund in your corpus?"
+    expected_route: NO_ANSWER
+  - id: oos-010
+    query: "What is the expense ratio of Axis Midcap Fund Direct Growth?"
+    expected_route: NO_ANSWER

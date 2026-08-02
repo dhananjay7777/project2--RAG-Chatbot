@@ -1,0 +1,52 @@
+{
+  "sources": [
+    {
+      "source_id": "groww-nippon-india-value-fund-direct-growth",
+      "scheme_name": "Nippon India Value Fund Direct Growth",
+      "chunk_count": 4,
+      "fact_count": 22,
+      "quarantined_chunks": 0,
+      "verified_facts": 18,
+      "null_facts": 4
+    },
+    {
+      "source_id": "groww-tata-multi-asset-allocation-fund-direct-growth",
+      "scheme_name": "Tata Multi Asset Allocation Fund Direct Growth",
+      "chunk_count": 5,
+      "fact_count": 22,
+      "quarantined_chunks": 0,
+      "verified_facts": 19,
+      "null_facts": 8
+    },
+    {
+      "source_id": "groww-kotak-multi-asset-allocation-fund-direct-growth",
+      "scheme_name": "Kotak Multi Asset Allocation Fund Direct Growth",
+      "chunk_count": 5,
+      "fact_count": 22,
+      "quarantined_chunks": 0,
+      "verified_facts": 20,
+      "null_facts": 9
+    },
+    {
+      "source_id": "groww-franklin-india-multi-cap-fund-direct-growth",
+      "scheme_name": "Franklin India Multi Cap Fund Direct Growth",
+      "chunk_count": 5,
+      "fact_count": 22,
+      "quarantined_chunks": 0,
+      "verified_facts": 21,
+      "null_facts": 9
+    },
+    {
+      "source_id": "groww-samco-mid-cap-fund-direct-growth",
+      "scheme_name": "Samco Mid Cap Fund Direct Growth",
+      "chunk_count": 5,
+      "fact_count": 22,
+      "quarantined_chunks": 0,
+      "verified_facts": 21,
+      "null_facts": 9
+    }
+  ],
+  "chunk_count": 24,
+  "fact_count": 110,
+  "quarantined_chunks": 0
+}

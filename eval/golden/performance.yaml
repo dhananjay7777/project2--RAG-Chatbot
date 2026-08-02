@@ -1,0 +1,43 @@
+version: 1
+set: performance
+cases:
+  - id: perf-001
+    query: "What returns did Nippon India Value Fund give last year?"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-002
+    query: "What is the 3 year return of Samco Mid Cap Fund?"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-003
+    query: "Show me the performance of Tata Multi Asset Allocation Fund"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-004
+    query: "How much did Franklin India Multi Cap grow in five years?"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-005
+    query: "Calculate my SIP returns for Kotak Multi Asset Allocation Fund"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-006
+    query: "What is the CAGR of Nippon India Value Fund Direct Growth?"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-007
+    query: "Annualized returns for Samco Mid Cap Fund Direct Growth"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-008
+    query: "NAV history chart for Franklin India Multi Cap"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-009
+    query: "Past performance of Kotak Multi Asset Allocation Fund Direct Growth"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true
+  - id: perf-010
+    query: "What were last year's returns on Tata Multi Asset Allocation Fund?"
+    expected_route: PERFORMANCE_REDIRECT
+    assert_no_digits: true

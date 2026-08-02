@@ -1,0 +1,139 @@
+# Intent taxonomy for Phase 4 router.
+# Each class has >=5 example queries and a bound response template.
+# Citation URLs MUST be one of the five allowlisted Groww URLs (never AMFI/SEBI).
+
+version: 1
+disclaimer: "Facts-only. No investment advice."
+
+# Placeholder tokens in templates:
+#   {{citation_url}}  — resolved at runtime to an allowlisted URL
+#   {{citation_label}} — human label for that source
+# Templates must contain exactly one {{citation_url}}.
+
+default_citation_url: https://groww.in/mutual-funds/nippon-india-value-fund-direct-growth
+
+classes:
+  FACTUAL_ATTRIBUTE:
+    route: FACTUAL
+    description: Objective scheme attribute lookup answerable from corpus fact cards.
+    examples:
+      - "What is the expense ratio of Nippon India Value Fund Direct Growth?"
+      - "What is the exit load on Samco Mid Cap Fund Direct Growth?"
+      - "Minimum SIP for Franklin India Multi Cap Fund Direct Growth?"
+      - "What is the AUM of Kotak Multi Asset Allocation Fund Direct Growth?"
+      - "What is the risk rating of Tata Multi Asset Allocation Fund Direct Growth?"
+      - "What is the benchmark of Nippon India Value Fund Direct Growth?"
+    template: null  # filled by Fact Card / synthesizer
+
+  FACTUAL_PROCESS:
+    route: FACTUAL
+    description: Factual process-like questions that still map to on-page disclosures (e.g. exit load rules).
+    examples:
+      - "What is the exit load if I redeem Nippon India Value Fund within a year?"
+      - "What is the stamp duty on investment for these Groww listed funds?"
+      - "What tax implication text does Groww show for Samco Mid Cap Fund?"
+      - "What is the minimum lumpsum for Kotak Multi Asset Allocation Fund?"
+      - "Who is the fund manager of Franklin India Multi Cap Fund Direct Growth?"
+    template: null
+
+  ADVISORY:
+    route: REFUSAL
+    description: Requests for investment advice or recommendations.
+    examples:
+      - "Should I invest in Nippon India Value Fund?"
+      - "Is Tata Multi Asset Allocation Fund a good investment?"
+      - "Would you recommend Samco Mid Cap Fund for me?"
+      - "Is it wise to put money in Franklin India Multi Cap?"
+      - "Can you advise me on Kotak Multi Asset Allocation Fund?"
+    template: |
+      I can only share facts from the listed Groww scheme pages, not investment advice.
+      Please ask about an objective detail such as expense ratio, exit load, or minimum SIP.
+      Source: {{citation_url}}
+
+  RANKING_COMPARATIVE:
+    route: REFUSAL
+    description: Ranking, "better/best", or comparative preference across funds.
+    examples:
+      - "Which of these five funds is better?"
+      - "Which fund is the best?"
+      - "Tata vs Kotak Multi Asset — which should I pick?"
+      - "Rank these funds from safest to riskiest for investing"
+      - "Is Nippon Value better than Samco Mid Cap?"
+    template: |
+      I do not compare or rank funds, and I do not give investment advice.
+      Ask about one scheme’s factual details (for example expense ratio or exit load).
+      Source: {{citation_url}}
+
+  PERFORMANCE_RETURNS:
+    route: PERFORMANCE_REDIRECT
+    description: Past returns, NAV history charts, or performance calculations.
+    # Template must be numeral-free (no digits except inside the URL).
+    examples:
+      - "What returns did Nippon India Value Fund give last year?"
+      - "What is the 3 year return of Samco Mid Cap Fund?"
+      - "Show me the performance of Tata Multi Asset Allocation Fund"
+      - "How much did Franklin India Multi Cap grow in five years?"
+      - "Calculate my SIP returns for Kotak Multi Asset Allocation Fund"
+    template: |
+      I do not provide returns, performance figures, or return calculations.
+      Please view official figures on the scheme page linked below.
+      Source: {{citation_url}}
+
+  SPECULATIVE_FORECAST:
+    route: REFUSAL
+    description: Future performance predictions.
+    examples:
+      - "Will this fund grow next year?"
+      - "Can Nippon Value double in three years?"
+      - "What returns should I expect from Samco Mid Cap?"
+      - "Is Kotak Multi Asset going to outperform the market?"
+      - "Predict NAV of Franklin India Multi Cap next month"
+    template: |
+      I cannot predict future performance or expected returns.
+      I only share verified facts from the listed Groww scheme pages.
+      Source: {{citation_url}}
+
+  PII_BEARING:
+    route: REFUSAL
+    description: Query contains or requests processing of personal identifiers.
+    examples:
+      - "My PAN is ABCDE1234F, show my units"
+      - "Aadhaar 2345 6789 0123 — get my folio"
+      - "OTP 482913 for my account, what is my balance"
+      - "Email me the exit load at user@example.com"
+      - "My account number 123456789012, minimum SIP?"
+    template: |
+      I do not collect, store, or process personal identifiers such as PAN, Aadhaar, account numbers, OTPs, emails, or phone numbers.
+      Ask a facts-only question about a scheme without personal details.
+      Source: {{citation_url}}
+
+  OUT_OF_SCOPE:
+    route: NO_ANSWER
+    description: Outside corpus or product scope (including ELSS lock-in and statement download).
+    examples:
+      - "What's the weather today?"
+      - "What is the ELSS lock-in for these funds?"
+      - "How do I download my capital gains statement?"
+      - "How do I download account statements from the AMC?"
+      - "What is the expense ratio of HDFC Flexi Cap Fund?"
+      - "What is the Sharpe ratio of Nippon India Value Fund Direct Growth?"
+      - "What is the alpha or beta of Kotak Multi Asset Allocation Fund?"
+    template: |
+      I do not have that information in this assistant’s source set.
+      I can answer factual questions about the five listed Groww Direct Growth schemes only.
+      Source: {{citation_url}}
+
+  AMBIGUOUS:
+    route: CLARIFY
+    description: Too vague to answer safely without naming a scheme.
+    examples:
+      - "What about the load?"
+      - "Expense ratio?"
+      - "Tell me about the fund"
+      - "Minimum SIP please"
+      - "What is the risk?"
+      - "NAV of Nippon"
+      - "Expense ratio of Tata"
+    template: |
+      Please name the full scheme (not just the fund house). This assistant only covers five Groww Direct Growth schemes — for example Nippon India Value Fund Direct Growth, or Samco Mid Cap Fund Direct Growth — not every fund from that AMC.
+      Source: {{citation_url}}

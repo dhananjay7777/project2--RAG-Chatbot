@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0b0d10;
+  --foreground: #e8eaed;
+  --groww: #00b386;
+  --groww-bright: #00d09c;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: #0a0b0d;
+  background-attachment: fixed;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.glass-panel {
+  background: rgba(18, 20, 24, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+}
+
+.glow-effect:focus-within {
+  box-shadow:
+    0 0 0 1px rgba(0, 179, 134, 0.35),
+    0 0 20px rgba(0, 179, 134, 0.08);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #f0f2f5 0%, #00d09c 70%, #00b386 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-groww {
+  background: #00b386;
+  color: #003d2e;
+  box-shadow: none;
+}
+
+.btn-groww:hover {
+  background: #00d09c;
+  box-shadow: 0 0 20px rgba(0, 179, 134, 0.25);
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  user-select: none;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

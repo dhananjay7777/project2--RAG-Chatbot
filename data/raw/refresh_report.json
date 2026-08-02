@@ -1,0 +1,43 @@
+{
+  "run_at": "2026-08-02T19:18:29Z",
+  "promotion_ready": true,
+  "active_sources": 5,
+  "headless_used": false,
+  "sources": [
+    {
+      "source_id": "groww-franklin-india-multi-cap-fund-direct-growth",
+      "previous_sha256": null,
+      "new_sha256": "ac0446eb778999b95fb9b1f62f692f8e923c9008cbe3a68cc52627cc1a27110b",
+      "changed": true
+    },
+    {
+      "source_id": "groww-kotak-multi-asset-allocation-fund-direct-growth",
+      "previous_sha256": null,
+      "new_sha256": "15adfc123269ad5d77dc8cbe2e690c12703abb2f505ca3a06602508c62f97eb2",
+      "changed": true
+    },
+    {
+      "source_id": "groww-nippon-india-value-fund-direct-growth",
+      "previous_sha256": null,
+      "new_sha256": "059f0a5bf33c63441f1650fe0fc9f52d50a2e530fde71f04b6905c4380aafddc",
+      "changed": true
+    },
+    {
+      "source_id": "groww-samco-mid-cap-fund-direct-growth",
+      "previous_sha256": null,
+      "new_sha256": "637b6a749a0ed1ff07ad60f90f6fa27929bfb8ce42c9c42d9aa63c57febdd4e9",
+      "changed": true
+    },
+    {
+      "source_id": "groww-tata-multi-asset-allocation-fund-direct-growth",
+      "previous_sha256": null,
+      "new_sha256": "7c1472016e355d21c671f481b498a238a19fd814044be15449f57ff9be72dcf2",
+      "changed": true
+    }
+  ],
+  "changed_count": 5,
+  "unchanged_count": 0,
+  "process_ok": true,
+  "index_ok": true,
+  "notes": []
+}

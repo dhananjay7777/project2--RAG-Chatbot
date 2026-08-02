@@ -1,0 +1,15 @@
+pydantic>=2.6,<3
+pyyaml>=6.0,<7
+pytest>=8.0,<9
+pre-commit>=3.6,<5
+python-dotenv>=1.0,<2
+requests>=2.32,<3
+beautifulsoup4>=4.12,<5
+lxml>=5.0,<6
+chromadb>=0.5,<1; sys_platform != "win32"
+rank-bm25>=0.2,<0.3
+groq>=0.11,<1
+sentence-transformers>=3.0,<4
+streamlit>=1.36,<2
+fastapi>=0.110,<1
+uvicorn>=0.29,<1
