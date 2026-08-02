@@ -2,6 +2,6 @@
   "version": 2,
   "name": "mf-faq-assistant",
   "framework": "nextjs",
-  "installCommand": "npm install --prefix frontend",
-  "buildCommand": "npm run build --prefix frontend"
+  "installCommand": "cd frontend && npm install",
+  "buildCommand": "cd frontend && npm run build"
 }
