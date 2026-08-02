@@ -19,13 +19,16 @@ __pycache__/
 frontend/
 docs/
 tests/
+eval/
 *.md
 !README.md
 agent-transcripts/
 .cursor/
 Thumbs.db
 .DS_Store
+requirements-headless.txt
 data/raw/**
 !data/raw/.gitkeep
 !data/raw/latest-live.json
 !data/raw/latest.json
+

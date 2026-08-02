@@ -79,8 +79,12 @@ Never commit `.env`.
 
 `PORT` and `MF_HEALTH_STRICT=1` are handled by Railway / the Docker image. You usually do not set them yourself.
 
-5. Deploy and wait for the build to finish (first build can take several minutes — it installs Python deps and warms embedding models).
-6. Copy the public URL, e.g. `https://something.up.railway.app`.
+5. Deploy and wait for the build to finish (first build can take several minutes — lean CPU torch + API deps only).
+6. First **runtime** boot downloads embedding/reranker weights (not baked into the image, so the Hobby ~4 GB limit is not exceeded). Allow a few minutes; healthcheck timeout is 300s.
+7. Copy the public URL, e.g. `https://something.up.railway.app`.
+
+If build logs show digests then **Failed to build an image** with no other error, the image was likely over the Hobby size limit — this repo’s `Dockerfile` + `requirements.api.txt` are meant to stay under that. As a secondary Railway workaround, turn off **Use Metal Build Environment** on the service and redeploy.
+
 
 ### Check the API
 

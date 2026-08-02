@@ -1,0 +1,13 @@
+# Lean Railway/API image deps (Hobby plan has a 4 GB compressed image limit).
+# Local/dev and CI still use requirements.txt (adds streamlit, pytest, chromadb, etc.).
+pydantic>=2.6,<3
+pyyaml>=6.0,<7
+python-dotenv>=1.0,<2
+requests>=2.32,<3
+beautifulsoup4>=4.12,<5
+lxml>=5.0,<6
+rank-bm25>=0.2,<0.3
+groq>=0.11,<1
+sentence-transformers>=3.0,<4
+fastapi>=0.110,<1
+uvicorn>=0.29,<1

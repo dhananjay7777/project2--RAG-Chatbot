@@ -38,6 +38,9 @@ def test_dockerfile_refuses_dotenv_and_asserts_registry():
     assert "load_source_definitions" in text
     assert "uvicorn app.api.main:app" in text
     assert "MF_HEALTH_STRICT=1" in text
+    assert "requirements.api.txt" in text
+    assert "download.pytorch.org/whl/cpu" in text
+    assert (ROOT / "requirements.api.txt").is_file()
 
 
 def test_dockerignore_excludes_dotenv():

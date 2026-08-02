@@ -8,6 +8,8 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 healthcheckPath = "/health"
-healthcheckTimeout = 120
+# First boot downloads embedding + reranker weights (not baked into the image).
+healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
+

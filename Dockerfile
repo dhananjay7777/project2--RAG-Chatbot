@@ -1,5 +1,26 @@
 # Deploy image for Railway (FastAPI + read-only Phase 9 corpus/index).
 # Never bake secrets: .env is excluded via .dockerignore.
+# Keep the compressed image under Railway Hobby's ~4 GB limit:
+# CPU torch only, no streamlit/chromadb/pytest, no HF weights baked in.
+
+FROM python:3.11-slim-bookworm AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /build
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.api.txt .
+
+# CPU torch first (much smaller than the CUDA default wheel), then API deps.
+RUN pip install --upgrade pip \
+    && pip install --prefix=/install torch --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --prefix=/install -r requirements.api.txt
 
 FROM python:3.11-slim-bookworm
 
@@ -8,18 +29,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     HF_HOME=/app/.cache/huggingface \
     TRANSFORMERS_CACHE=/app/.cache/huggingface \
-    MF_HEALTH_STRICT=1
+    MF_HEALTH_STRICT=1 \
+    PATH="/usr/local/bin:${PATH}" \
+    PYTHONPATH="/usr/local/lib/python3.11/site-packages"
 
 WORKDIR /app
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt .
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
-
+COPY --from=builder /install /usr/local
 COPY . .
 
 # P10-01: refuse images that accidentally include a local .env
@@ -32,15 +48,11 @@ RUN test -f data/index/index_manifest.json \
     && (test -d data/index/chroma || test -f data/index/dense_vectors.pkl) \
     && test -f data/processed/chunks.jsonl
 
-# Warm embedding + reranker weights so first /ask is not a multi-minute download
-RUN python - <<'PY'
-from sentence_transformers import SentenceTransformer, CrossEncoder
-SentenceTransformer("BAAI/bge-small-en-v1.5")
-CrossEncoder("BAAI/bge-reranker-base")
-print("models warmed")
-PY
+# Do NOT download embedding/reranker weights here — they push the image over
+# Railway Hobby's size limit. Lifespan warm-up in app.api.main loads them at boot.
 
 RUN useradd --create-home --uid 10001 appuser \
+    && mkdir -p /app/.cache/huggingface \
     && chown -R appuser:appuser /app
 USER appuser
 
