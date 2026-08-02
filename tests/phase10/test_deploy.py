@@ -56,10 +56,11 @@ def test_dockerignore_excludes_dotenv():
 def test_vercel_json_points_at_frontend():
     import json
 
-    data = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
-    assert data.get("framework") == "nextjs"
-    assert "frontend" in data.get("buildCommand", "")
-    assert "cd frontend" in data.get("installCommand", "")
+    frontend = json.loads((ROOT / "frontend" / "vercel.json").read_text(encoding="utf-8"))
+    assert frontend.get("framework") == "nextjs"
+    assert frontend.get("installCommand") == "npm install"
+    assert frontend.get("buildCommand") == "npm run build"
+    assert "--prefix" not in frontend.get("installCommand", "")
 
 
 def test_frontend_contains_disclaimer_and_brand():

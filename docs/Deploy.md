@@ -108,10 +108,11 @@ If `/health` fails, do not share the demo link yet — the index or registry is 
 
 1. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
 2. **Add New Project** → import the **same** GitHub repo.
-3. Project settings (pick one approach):
+3. Project settings:
 
-   - **Preferred:** set **Root Directory** to `frontend`, framework **Next.js** (then Vercel’s default install/build is enough; you can clear any custom install command).
-   - **Or** leave Root Directory as `/` — the root `vercel.json` runs `cd frontend && npm install` / `npm run build`.
+   - Set **Root Directory** to `frontend` (required).
+   - Framework: **Next.js**.
+   - Install/Build are defined in `frontend/vercel.json` (`npm install` / `npm run build`) — do not use `--prefix frontend` (that looks for `frontend/frontend` and fails).
 
 4. Under **Environment Variables**, add:
 
