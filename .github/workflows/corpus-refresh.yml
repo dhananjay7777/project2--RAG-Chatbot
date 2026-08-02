@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # Full history so rebase works when main moved during the long refresh.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -80,4 +84,19 @@ jobs:
             exit 0
           fi
           git commit -m "chore(corpus): daily freshness refresh ($(date -u +%Y-%m-%d))"
-          git push
+
+          # Refresh can take minutes; main may move (CI, manual push, prior refresh).
+          # Rebase onto latest remote and retry push a few times.
+          branch="${GITHUB_REF_NAME:-main}"
+          for attempt in 1 2 3; do
+            git fetch origin "$branch"
+            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then
+              echo "Pushed corpus refresh on attempt $attempt."
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying..."
+            git rebase --abort 2>/dev/null || true
+            sleep $((attempt * 5))
+          done
+          echo "Failed to push corpus refresh after retries."
+          exit 1
