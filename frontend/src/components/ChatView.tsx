@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Composer } from "./Composer";
 import { Icon } from "./Icon";
 import { SchemeRail } from "./SchemeRail";
@@ -33,11 +33,43 @@ export function ChatView({
 }: ChatViewProps) {
   const [panel, setPanel] = useState<Panel>("chat");
   const [mobileNav, setMobileNav] = useState(false);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const threadEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = document.getElementById("thread-end");
-    el?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, busy]);
+    if (panel !== "chat") return;
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const scrollToLatest = () => {
+      const latest = messages[messages.length - 1];
+      // Prefer the start of the newest assistant reply so the answer isn't
+      // clipped under the composer; otherwise pin to the thread end.
+      if (latest?.role === "assistant") {
+        const node = scroller.querySelector<HTMLElement>(
+          `[data-message-id="${latest.id}"]`,
+        );
+        if (node) {
+          const nodeTop = node.getBoundingClientRect().top;
+          const scrollerTop = scroller.getBoundingClientRect().top;
+          const top = scroller.scrollTop + (nodeTop - scrollerTop) - 16;
+          scroller.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+          return;
+        }
+      }
+      scroller.scrollTo({ top: scroller.scrollHeight, behavior: "smooth" });
+    };
+
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(scrollToLatest);
+    });
+    // Second pass after the answer bubble finishes laying out.
+    const timer = window.setTimeout(scrollToLatest, 120);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timer);
+    };
+  }, [messages, busy, panel]);
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-transparent text-on-surface flex">
@@ -161,9 +193,9 @@ export function ChatView({
           </div>
         </header>
 
-        <div className="relative flex-1 overflow-y-auto">
+        <div ref={scrollerRef} className="relative flex-1 overflow-y-auto">
           {panel === "chat" ? (
-            <div className="relative mx-auto flex max-w-[860px] flex-col gap-5 px-4 py-6 pb-36 md:px-8">
+            <div className="relative mx-auto flex max-w-[860px] flex-col gap-5 px-4 py-6 pb-44 md:px-8">
               <SchemeRail schemes={schemes} variant="strip" className="md:hidden" />
               <div className="flex justify-center">
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#9AA0A6]">
@@ -179,7 +211,11 @@ export function ChatView({
                     </div>
                   </div>
                 ) : (
-                  <div key={message.id} className="flex gap-3 animate-fade-up">
+                  <div
+                    key={message.id}
+                    data-message-id={message.id}
+                    className="flex gap-3 animate-fade-up scroll-mt-4"
+                  >
                     <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05]">
                       <Icon name="smart_toy" className="text-[18px] text-groww" filled />
                     </div>
@@ -222,7 +258,7 @@ export function ChatView({
                   </div>
                 ),
               )}
-              <div id="thread-end" />
+              <div ref={threadEndRef} className="h-2 shrink-0" aria-hidden />
             </div>
           ) : (
             <SidePanel
