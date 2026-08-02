@@ -17,12 +17,15 @@ function uid() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+type AssistantMessage = Extract<ChatMessage, { role: "assistant" }>;
+
 function assistantFromEnvelope(envelope: {
   route?: string;
   answer?: string;
   footer?: string;
   citation?: { url?: string; label?: string };
-}): ChatMessage {
+  note?: string;
+}): AssistantMessage {
   const route = (envelope.route || "NO_ANSWER") as AnswerRoute;
   const style = ROUTE_STYLE[route] || ROUTE_STYLE.NO_ANSWER;
   const showLink = route === "FACTUAL" && Boolean(envelope.citation?.url);
@@ -31,7 +34,7 @@ function assistantFromEnvelope(envelope: {
     role: "assistant",
     route,
     answer: envelope.answer || "",
-    note: style.note,
+    note: envelope.note ?? style.note,
     footer: showLink ? envelope.footer || "" : "",
     citationUrl: showLink ? envelope.citation?.url || null : null,
     citationLabel: showLink ? envelope.citation?.label || "Source" : "",
@@ -84,14 +87,14 @@ export function ChatApp() {
       try {
         const result = await askQuestion(text);
         if ("status" in result && "detail" in result) {
-          const msg = assistantFromEnvelope({
-            route: result.status === 429 ? "REFUSAL" : "NO_ANSWER",
-            answer: result.detail,
-          });
-          if (result.status === 408) {
-            msg.note = "";
-          }
-          setMessages((prev) => [...prev, msg]);
+          setMessages((prev) => [
+            ...prev,
+            assistantFromEnvelope({
+              route: result.status === 429 ? "REFUSAL" : "NO_ANSWER",
+              answer: result.detail,
+              note: result.status === 408 ? "" : undefined,
+            }),
+          ]);
           return;
         }
         setMessages((prev) => [...prev, assistantFromEnvelope(result)]);
