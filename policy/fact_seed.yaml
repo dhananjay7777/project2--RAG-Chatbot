@@ -1,6 +1,10 @@
 # Human-verified Fact Card seeds (Pass C).
 # verified_by_human is true only when extraction matches this seed (or explicit null).
 # Source: docs/Corpus.md — re-verify after live re-fetch.
+#
+# fund_manager: prefer live page extraction of all "Present" managers during
+# processing (see ingest.processing.facts._extract_fund_managers). Seed lists
+# below are a fallback / regression check for the five locked schemes.
 
 version: 1
 
@@ -56,7 +60,7 @@ schemes:
       nav: "₹244.42 (as of 24 Jul 2026)"
       benchmark: "NIFTY 500 Total Return Index"
       launch_date: "30 Jun 1995"
-      fund_manager: "Amber Singhania"
+      fund_manager: "Amber Singhania, Dhrumil Shah, Meenakshi Dawar, Kinjal Desai"
       stamp_duty: "0.005%"
       tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
       investment_objective: "The scheme seeks capital appreciation and/or to generate consistent returns by actively investing in equity/ equity related securities predominantly into value stocks."
@@ -82,7 +86,7 @@ schemes:
       nav: "₹27.95 (as of 24 Jul 2026)"
       benchmark: null
       launch_date: "30 Jun 1995"
-      fund_manager: null
+      fund_manager: "Murthy Nagarajan, Rahul Singh, Tapan Patel, Sailesh Jain, Amit Somani"
       stamp_duty: "0.005%"
       tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
       investment_objective: null
@@ -108,7 +112,7 @@ schemes:
       nav: "₹16.17 (as of 24 Jul 2026)"
       benchmark: null
       launch_date: "05 Aug 1994"
-      fund_manager: null
+      fund_manager: "Jeetu Valechha Sonar, Abhishek Bisen, Devender Singhal, Hiten Shah"
       stamp_duty: "0.005%"
       tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
       investment_objective: null
@@ -134,7 +138,7 @@ schemes:
       nav: "₹10.94 (as of 24 Jul 2026)"
       benchmark: "Nifty 500 Multicap 50:25:25 Total Return Index"
       launch_date: "19 Feb 1996"
-      fund_manager: null
+      fund_manager: "Akhil Kalluri, R Janakiraman, Kiran Sebastian, Sandeep Manam"
       stamp_duty: "0.005%"
       tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
       investment_objective: null
@@ -160,7 +164,7 @@ schemes:
       nav: "₹9.79 (as of 24 Jul 2026)"
       benchmark: "NIFTY Midcap 150 Total Return Index"
       launch_date: "14 Sep 2021"
-      fund_manager: null
+      fund_manager: "Umeshkumar Mehta, Dhawal Ghanshyam Dhanani, Nirali Bhansali, Komal Grover, Vishal Shinde"
       stamp_duty: "0.005%"
       tax_implication_text: "If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%."
       investment_objective: null

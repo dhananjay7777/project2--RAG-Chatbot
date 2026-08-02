@@ -36,6 +36,60 @@ def _first_match(pattern: str, text: str, flags: int = re.I | re.S) -> str | Non
     return match.group(1).strip() if match else None
 
 
+def _extract_fund_managers(text: str) -> str | None:
+    """Return all *current* Groww fund managers, comma-separated.
+
+    Works for markdown captures and live HTML. Prefer cards marked Present so
+    newly added schemes keep working without hard-coding names in seed.
+    """
+
+    names: list[str] = []
+
+    def _add(name: str) -> None:
+        name = re.sub(r"\s+", " ", name).strip()
+        if not name:
+            return
+        if name.lower().startswith(
+            ("also manages", "education", "experience", "view details")
+        ):
+            return
+        if name not in names:
+            names.append(name)
+
+    # Live Groww HTML accordion cards
+    for match in re.finditer(
+        r'fundManagement_personName__[^>]*>([^<]{2,80})</div>'
+        r".{0,160}?-\s*Present",
+        text,
+        flags=re.S | re.I,
+    ):
+        _add(match.group(1))
+
+    # Markdown / stripped text: initials badge + name + Present tenure
+    if not names:
+        idx = re.search(r"(?:###\s*)?Fund management\b", text, re.I)
+        section = text[idx.start() : idx.start() + 6000] if idx else text
+        for match in re.finditer(
+            r"\n([A-Z]{1,4})\n\n([A-Z][^\n]{2,80})\n\n[A-Za-z]{3}\s+20\d{2}[^\n]*Present",
+            section,
+        ):
+            _add(match.group(2))
+
+    if names:
+        return ", ".join(names)
+
+    return _first_match(
+        r"([A-Z][A-Za-z.(]+(?:\s+[A-Z][A-Za-z.]+){0,4})\s+is the Current Fund Manager",
+        text,
+    )
+
+
+def _manager_count(value: str | None) -> int:
+    if not value or not str(value).strip():
+        return 0
+    return len([part for part in str(value).split(",") if part.strip()])
+
+
 def _normalize_cmp(value: str | None) -> str | None:
     if value is None:
         return None
@@ -145,12 +199,7 @@ def extract_pass_a(doc: ParsedDocument) -> dict[str, Optional[str]]:
         r"####\s*Investment Objective\s*\n+([^\n]+)", text
     )
 
-    # Fund manager: first name after Fund management that looks like a person
-    mgr = _first_match(
-        r"###\s*Fund management[\s\S]{0,200}?([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})\s*\n+\w+\s+20\d{2}",
-        text,
-    )
-    facts["fund_manager"] = mgr
+    facts["fund_manager"] = _extract_fund_managers(text)
 
     # Advanced ratios from embedded JSON (live HTML); markdown bootstrap → null
     emb = doc.embedded_json
@@ -203,7 +252,17 @@ def verify_against_seed(
     for key in in_scope:
         seed_val = expected.get(key, None)
         got = extracted.get(key)
-        if seed_val is None and got is None:
+
+        # Fund managers change on Groww; prefer all *Present* names from the page
+        # so new schemes work without hand-maintaining every manager in seed.
+        if key == "fund_manager" and got:
+            if seed_val and _manager_count(got) < _manager_count(seed_val):
+                verified = True
+                value = seed_val
+            else:
+                verified = True
+                value = got
+        elif seed_val is None and got is None:
             verified = True
             value = None
         elif seed_val is None and got is not None and key in nullable_ok:
@@ -226,7 +285,7 @@ def verify_against_seed(
                 value = None
             else:
                 # Seed YAML is the human-verified source of truth; prefer it when
-                # regex extraction is noisy (e.g. fund manager initials + name).
+                # regex extraction is noisy.
                 if seed_val is not None:
                     verified = True
                     value = seed_val

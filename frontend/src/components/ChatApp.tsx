@@ -84,13 +84,14 @@ export function ChatApp() {
       try {
         const result = await askQuestion(text);
         if ("status" in result && "detail" in result) {
-          setMessages((prev) => [
-            ...prev,
-            assistantFromEnvelope({
-              route: result.status === 429 ? "REFUSAL" : "NO_ANSWER",
-              answer: result.detail,
-            }),
-          ]);
+          const msg = assistantFromEnvelope({
+            route: result.status === 429 ? "REFUSAL" : "NO_ANSWER",
+            answer: result.detail,
+          });
+          if (result.status === 408) {
+            msg.note = "";
+          }
+          setMessages((prev) => [...prev, msg]);
           return;
         }
         setMessages((prev) => [...prev, assistantFromEnvelope(result)]);

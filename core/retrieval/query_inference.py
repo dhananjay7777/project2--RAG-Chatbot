@@ -31,7 +31,7 @@ _FACT_KEYWORDS: list[tuple[str, str]] = [
     ),
     (r"\bminimum\s*investment\b|\bmin\.?\s*for\s*1st\b|\blumpsum\b", "min_lumpsum"),
     (r"\bbenchmark\b", "benchmark"),
-    (r"\bfund\s*manager\b|\bmanager\b", "fund_manager"),
+    (r"\bfund\s*manager\b|\bfund\s*management\b|\bmanager\b", "fund_manager"),
     (r"\bAUM\b|\bfund\s*size\b|\bassets\s+under\s+management\b", "aum"),
     (r"\bNAV\b", "nav"),
     (r"\brisk\b|\briskometer\b", "risk_rating"),

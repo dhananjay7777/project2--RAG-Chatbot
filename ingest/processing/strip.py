@@ -39,16 +39,18 @@ def strip_document(doc: ParsedDocument) -> ParsedDocument:
     for section in doc.sections:
         if _should_strip_heading(section.heading):
             continue
-        # Drop related-fund farms inside fund management sections
-        text = section.text
-        text = re.split(r"(?i)Also manages these schemes", text, maxsplit=1)[0].strip()
+        # Drop related-fund farms under each manager card, but keep later managers.
+        text = _drop_also_manages_blocks(section.text)
         # Drop trailing Groww chrome / footer after Home>Mutual Funds
         text = re.split(r"(?i)Home\s*>\s*Mutual Funds", text, maxsplit=1)[0].strip()
         if not text and section.heading.lower() in {"preamble"}:
             # Keep trimmed preamble (hero metrics live here)
             text = section.text
             for marker in _STRIP_TEXT_MARKERS:
-                text = re.split(marker, text, maxsplit=1, flags=re.I)[0].strip()
+                if re.search(r"(?i)Also manages these schemes", marker):
+                    text = _drop_also_manages_blocks(text)
+                else:
+                    text = re.split(marker, text, maxsplit=1, flags=re.I)[0].strip()
         if not text:
             continue
         kept.append(section.model_copy(update={"text": text}))
@@ -59,11 +61,35 @@ def strip_document(doc: ParsedDocument) -> ParsedDocument:
         r"###\s+Return calculator[\s\S]*?(?=###\s+Minimum investments|##\s+Holdings|###\s+Exit Load|$)",
         r"##\s+Holdings[\s\S]*?(?=###\s+Minimum investments|##\s+Understand terms|###\s+Exit Load|$)",
         r"###\s+Returns and rankings[\s\S]*?(?=##\s+Understand terms|###\s+Exit Load|$)",
-        r"(?i)Also manages these schemes[\s\S]*?(?=###\s+About |###\s+Fund house|$)",
     ):
         raw = re.sub(marker, "\n", raw)
+    raw = _drop_also_manages_blocks(raw)
 
     return doc.model_copy(update={"sections": kept, "raw_text": raw})
+
+
+def _drop_also_manages_blocks(text: str) -> str:
+    """Remove Groww 'Also manages these schemes' lists without deleting later managers.
+
+    Older stripping cut from the first 'Also manages…' through 'About/Fund house',
+    which deleted every manager card after the first.
+    """
+
+    return re.sub(
+        r"(?i)Also manages these schemes"
+        r"[\s\S]*?"
+        r"(?="
+        r"\n###\s*\n+[A-Z]{1,4}\n\n"  # next initials heading (markdown)
+        r"|\n###\s+[A-Z]{1,4}\n\n"
+        r"|\n###\s+About\b"
+        r"|\n###\s+Fund house\b"
+        r"|fundManagement_initials__"  # next HTML manager card
+        r"|fundManagement_personName__"
+        r"|\Z"
+        r")",
+        "\n",
+        text,
+    )
 
 
 def strip_audit_violations(chunks_text: str) -> list[str]:

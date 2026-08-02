@@ -64,15 +64,34 @@ def ask(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 try:  # pragma: no cover - exercised only when FastAPI is installed
+    from contextlib import asynccontextmanager
+
     from fastapi import FastAPI, HTTPException
     from fastapi.middleware.cors import CORSMiddleware
 
     from app.api.rate_limit import PerIpRateLimitMiddleware
 
+    def _warm_retrieval_models() -> None:
+        """Load embedding + reranker weights once so the first /ask is not a multi-minute stall."""
+        try:
+            from sentence_transformers import CrossEncoder, SentenceTransformer
+
+            SentenceTransformer("BAAI/bge-small-en-v1.5")
+            CrossEncoder("BAAI/bge-reranker-base")
+            logger.info("retrieval models warmed")
+        except Exception:  # noqa: BLE001 — startup should not crash the API
+            logger.exception("retrieval model warm-up failed")
+
+    @asynccontextmanager
+    async def _lifespan(_app: FastAPI):
+        _warm_retrieval_models()
+        yield
+
     app = FastAPI(
         title="Mutual Fund FAQ Assistant",
         description=DISCLAIMER,
         version="1.0.0",
+        lifespan=_lifespan,
     )
 
     origins = cors_origins()

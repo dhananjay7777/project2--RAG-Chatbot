@@ -1,6 +1,6 @@
 import type { AskEnvelope, HealthPayload } from "./types";
 
-const ASK_TIMEOUT_MS = 45_000;
+const ASK_TIMEOUT_MS = 120_000;
 
 export function apiBase(): string {
   return (process.env.NEXT_PUBLIC_MF_API_URL || "http://127.0.0.1:8000").replace(

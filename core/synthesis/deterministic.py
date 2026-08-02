@@ -52,11 +52,18 @@ def format_fact_answer(fact: FactCard, *, max_sentences: int = 3) -> str:
         raise ValueError("Fact card has no value_text")
     label = FACT_LABELS.get(fact.fact_key, fact.fact_key.replace("_", " "))
     value = fact.value_text.strip()
+
+    if fact.fact_key == "fund_manager":
+        managers = [part.strip() for part in value.split(",") if part.strip()]
+        if len(managers) > 1:
+            listed = ", ".join(managers[:-1]) + f", and {managers[-1]}"
+            return f"The fund managers of {fact.scheme_name} are {listed}."
+        return f"The fund manager of {fact.scheme_name} is {managers[0]}."
+
     long_form_keys = {
         "exit_load",
         "investment_objective",
         "tax_implication_text",
-        "fund_manager",
     }
     if fact.fact_key in long_form_keys:
         body = cap_sentences(value.replace("\n\n", " ").replace("\n", " "), max_sentences)

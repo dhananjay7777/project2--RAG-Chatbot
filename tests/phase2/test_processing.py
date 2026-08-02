@@ -80,6 +80,70 @@ def test_pass_a_extracts_core_nippon_facts(nippon_doc):
     assert "10%" in (facts["exit_load"] or "")
 
 
+def test_pass_a_extracts_all_franklin_fund_managers():
+    path = (
+        ROOT
+        / "data"
+        / "raw"
+        / "groww-franklin-india-multi-cap-fund-direct-growth"
+        / "7af12341599c1bb6d42d87e1102fa608096366470a0f699942ca5192c64cad49.md"
+    )
+    doc = parse_artifact(
+        path,
+        source_id="groww-franklin-india-multi-cap-fund-direct-growth",
+        scheme_name="Franklin India Multi Cap Fund Direct Growth",
+        effective_date=date(2026, 7, 24),
+    )
+    facts = extract_pass_a(strip_document(doc))
+    managers = [m.strip() for m in (facts["fund_manager"] or "").split(",") if m.strip()]
+    assert managers == [
+        "Akhil Kalluri",
+        "R Janakiraman",
+        "Kiran Sebastian",
+        "Sandeep Manam",
+    ]
+
+
+def test_fund_manager_verification_prefers_page_list_over_partial_seed():
+    seed = load_fact_seed()
+    extracted = {
+        "expense_ratio": "0.93%",
+        "exit_load": "Exit load of 1%, if redeemed within 1 year.",
+        "min_sip": "₹500",
+        "min_lumpsum": "₹5,000",
+        "risk_rating": "Very High Risk",
+        "category": "Equity — Multi Cap",
+        "aum": "₹5,029.48 Cr",
+        "nav": "₹10.94 (as of 24 Jul 2026)",
+        "benchmark": "Nifty 500 Multicap 50:25:25 Total Return Index",
+        "launch_date": "19 Feb 1996",
+        "fund_manager": "Akhil Kalluri, R Janakiraman, Kiran Sebastian, Sandeep Manam",
+        "stamp_duty": "0.005%",
+        "tax_implication_text": seed["schemes"][
+            "groww-franklin-india-multi-cap-fund-direct-growth"
+        ]["facts"]["tax_implication_text"],
+        "investment_objective": None,
+        "top_5_concentration": None,
+        "top_20_concentration": None,
+        "pe_ratio": None,
+        "pb_ratio": None,
+        "alpha": None,
+        "beta": None,
+        "sharpe": None,
+        "sortino": None,
+    }
+    # Simulate outdated seed that only kept the first manager
+    seed["schemes"]["groww-franklin-india-multi-cap-fund-direct-growth"]["facts"][
+        "fund_manager"
+    ] = "Akhil Kalluri"
+    cards = verify_against_seed(
+        "groww-franklin-india-multi-cap-fund-direct-growth", extracted, seed
+    )
+    assert cards["fund_manager"].verified_by_human is True
+    assert "R Janakiraman" in (cards["fund_manager"].value_text or "")
+    assert "Sandeep Manam" in (cards["fund_manager"].value_text or "")
+
+
 def test_samco_aum_uses_hero_not_fund_house():
     path = (
         ROOT

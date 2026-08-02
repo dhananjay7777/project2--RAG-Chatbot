@@ -1,4 +1,4 @@
-.PHONY: test ingest ingest-headless bootstrap bootstrap-dev validate-corpus process process-audit index refresh eval serve serve-api serve-web lint-policy install
+.PHONY: test ingest ingest-headless bootstrap bootstrap-dev validate-corpus process process-audit index refresh eval serve serve-api serve-web lint-policy install refresh-fund-managers
 
 SNAPSHOT_DIR ?=
 
@@ -39,6 +39,11 @@ index:
 # Phase 9 local freshness: live fetch → validate → process → index (fail-closed).
 refresh:
 	python -m ingest.freshness refresh
+
+# Re-extract all Present fund managers from raw Groww pages into Fact Cards + seed.
+refresh-fund-managers:
+	python scripts/refresh_fund_managers.py
+	python scripts/sync_fund_manager_seed.py
 
 eval:
 	python -m eval.run_eval --json eval/artifacts/scorecard.latest.json
