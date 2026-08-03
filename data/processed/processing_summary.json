@@ -16,7 +16,7 @@
       "fact_count": 22,
       "quarantined_chunks": 0,
       "verified_facts": 19,
-      "null_facts": 8
+      "null_facts": 7
     },
     {
       "source_id": "groww-kotak-multi-asset-allocation-fund-direct-growth",
@@ -25,7 +25,7 @@
       "fact_count": 22,
       "quarantined_chunks": 0,
       "verified_facts": 20,
-      "null_facts": 9
+      "null_facts": 8
     },
     {
       "source_id": "groww-franklin-india-multi-cap-fund-direct-growth",
@@ -34,7 +34,7 @@
       "fact_count": 22,
       "quarantined_chunks": 0,
       "verified_facts": 21,
-      "null_facts": 9
+      "null_facts": 8
     },
     {
       "source_id": "groww-samco-mid-cap-fund-direct-growth",
@@ -43,7 +43,7 @@
       "fact_count": 22,
       "quarantined_chunks": 0,
       "verified_facts": 21,
-      "null_facts": 9
+      "null_facts": 8
     }
   ],
   "chunk_count": 24,
