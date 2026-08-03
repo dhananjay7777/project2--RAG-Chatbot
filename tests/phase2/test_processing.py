@@ -221,6 +221,45 @@ def test_seed_verification_marks_verified():
     assert cards["benchmark"].value_text is not None
 
 
+def test_live_nav_overrides_stale_seed():
+    seed = load_fact_seed()
+    extracted = {
+        key: seed["schemes"]["groww-nippon-india-value-fund-direct-growth"]["facts"].get(
+            key
+        )
+        for key in seed["in_scope_keys"]
+    }
+    extracted["nav"] = "₹250.01 (as of 31 Jul 2026)"
+    extracted["aum"] = "₹9,000.00 Cr"
+    cards = verify_against_seed(
+        "groww-nippon-india-value-fund-direct-growth", extracted, seed
+    )
+    assert cards["nav"].value_text == "₹250.01 (as of 31 Jul 2026)"
+    assert cards["aum"].value_text == "₹9,000.00 Cr"
+    assert cards["nav"].verified_by_human is True
+
+
+def test_html_nav_extracted_from_div_markup(tmp_path: Path):
+    from ingest.processing.parse import parse_artifact
+
+    html = """
+    <html><body>
+    <div>NAV: 31 Jul '26</div><div>₹250.01</div>
+    <div>Fund size (AUM)</div><div>₹8,962.36 Cr</div>
+    <p>The Latest NAV as of 31 Jul 2026 is ₹250.01.</p>
+    </body></html>
+    """
+    path = tmp_path / "scheme.html"
+    path.write_text(html, encoding="utf-8")
+    doc = parse_artifact(
+        path,
+        source_id="groww-nippon-india-value-fund-direct-growth",
+        scheme_name="Nippon India Value Fund Direct Growth",
+    )
+    assert doc.hero_metrics.get("nav_value") == "₹250.01"
+    assert doc.effective_date == date(2026, 7, 31)
+
+
 @pytest.mark.skipif(not NIPPON_MD.exists(), reason="raw corpus not bootstrapped")
 def test_process_corpus_integration(tmp_path):
     raw = ROOT / "data" / "raw"

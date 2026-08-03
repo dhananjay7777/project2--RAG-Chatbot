@@ -253,8 +253,8 @@ def verify_against_seed(
         seed_val = expected.get(key, None)
         got = extracted.get(key)
 
-        # Fund managers change on Groww; prefer all *Present* names from the page
-        # so new schemes work without hand-maintaining every manager in seed.
+        # Fund managers: prefer the fuller *Present* list from the page; only fall
+        # back to seed when the page list looks truncated vs seed.
         if key == "fund_manager" and got:
             if seed_val and _manager_count(got) < _manager_count(seed_val):
                 verified = True
@@ -262,36 +262,20 @@ def verify_against_seed(
             else:
                 verified = True
                 value = got
-        elif seed_val is None and got is None:
+        elif got is not None:
+            # Daily Groww refresh: live page wins for every extracted fact (all five
+            # schemes). Seed is only a fallback when extraction misses.
+            verified = True
+            value = got
+        elif seed_val is not None:
+            verified = True
+            value = seed_val
+        elif key in nullable_ok:
             verified = True
             value = None
-        elif seed_val is None and got is not None and key in nullable_ok:
-            # Extra discovery from live HTML is allowed but not auto-verified
-            verified = False
-            value = got
-        elif _normalize_cmp(got) == _normalize_cmp(seed_val):
-            verified = True
-            value = seed_val  # canonical seed display form
         else:
-            # Prefer seed for deterministic answers when extraction is close/missing
-            # but mark unverified if mismatch (fail-closed for deterministic path)
-            if got is None and seed_val is not None:
-                # Extraction miss: use seed, mark verified only if we treat seed as curated truth
-                # Architecture: human verification of seeds — seed file IS the human review.
-                verified = True
-                value = seed_val
-            elif key in nullable_ok and seed_val is None:
-                verified = True
-                value = None
-            else:
-                # Seed YAML is the human-verified source of truth; prefer it when
-                # regex extraction is noisy.
-                if seed_val is not None:
-                    verified = True
-                    value = seed_val
-                else:
-                    verified = False
-                    value = got
+            verified = False
+            value = None
 
         cards[key] = FactCard(
             fact_key=key,

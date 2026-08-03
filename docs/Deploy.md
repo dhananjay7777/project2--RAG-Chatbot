@@ -155,10 +155,23 @@ Typical order that works well:
 
 ## Updating fund data later
 
-Ask-time never scrapes Groww live. Fresh data only lands when you refresh artifacts and **redeploy Railway**.
+Ask-time never scrapes Groww live. Fresh data lands when **corpus-refresh** runs and
+Railway rebuilds from the new commit (baked-in `data/processed` + `data/index`).
 
-1. Run **Actions → corpus-refresh** (or `make refresh` + force-commit as in Step 1).
-2. Trigger a **new Railway deploy** so the new `data/processed` + `data/index` are baked into the image.
+Daily path (already configured):
+
+1. GitHub Actions **corpus-refresh** runs at **10:00 AM IST** (`30 4 * * *` UTC).
+2. It re-fetches all **five** Groww pages, re-processes Fact Cards (NAV, AUM, expense
+   ratio, SIP, exit load, managers, …), rebuilds the index, syncs `policy/fact_seed.yaml`,
+   and force-commits to `main`.
+3. Railway must **auto-deploy from `main`** so the chatbot serves that commit. In the
+   Railway service: Settings → Source → confirm the GitHub repo/`main` branch is connected
+   and deploys on push. Without that, chat keeps yesterday’s image until you redeploy.
+
+Manual path:
+
+1. **Actions → corpus-refresh → Run workflow** (or `python -m ingest.freshness refresh` locally).
+2. Confirm Railway picks up the new commit (or click Deploy).
 3. Frontend on Vercel usually needs no change.
 
 ---

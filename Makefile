@@ -43,7 +43,7 @@ refresh:
 # Re-extract all Present fund managers from raw Groww pages into Fact Cards + seed.
 refresh-fund-managers:
 	python scripts/refresh_fund_managers.py
-	python scripts/sync_fund_manager_seed.py
+	python scripts/sync_fact_seed_volatile.py
 
 eval:
 	python -m eval.run_eval --json eval/artifacts/scorecard.latest.json

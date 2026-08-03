@@ -6,7 +6,7 @@
       "chunk_count": 4,
       "fact_count": 22,
       "quarantined_chunks": 0,
-      "verified_facts": 18,
+      "verified_facts": 22,
       "null_facts": 4
     },
     {
@@ -15,7 +15,7 @@
       "chunk_count": 5,
       "fact_count": 22,
       "quarantined_chunks": 0,
-      "verified_facts": 19,
+      "verified_facts": 22,
       "null_facts": 7
     },
     {
@@ -24,7 +24,7 @@
       "chunk_count": 5,
       "fact_count": 22,
       "quarantined_chunks": 0,
-      "verified_facts": 20,
+      "verified_facts": 22,
       "null_facts": 8
     },
     {
@@ -33,7 +33,7 @@
       "chunk_count": 5,
       "fact_count": 22,
       "quarantined_chunks": 0,
-      "verified_facts": 21,
+      "verified_facts": 22,
       "null_facts": 8
     },
     {
@@ -42,7 +42,7 @@
       "chunk_count": 5,
       "fact_count": 22,
       "quarantined_chunks": 0,
-      "verified_facts": 21,
+      "verified_facts": 22,
       "null_facts": 8
     }
   ],

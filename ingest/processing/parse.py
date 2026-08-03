@@ -44,6 +44,14 @@ _JSON_KEYS = (
 def _parse_nav_date(text: str) -> date | None:
     match = _NAV_DATE.search(text)
     if not match:
+        match = re.search(
+            r"NAV as of\s+(\d{1,2})\s+"
+            r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+"
+            r"[’']?(\d{2}|\d{4})",
+            text,
+            re.IGNORECASE,
+        )
+    if not match:
         return None
     day = int(match.group(1))
     month = _MONTHS[match.group(2)[:3].lower()]
@@ -54,6 +62,71 @@ def _parse_nav_date(text: str) -> date | None:
         return date(year, month, day)
     except ValueError:
         return None
+
+
+def _extract_groww_html_metrics(raw: str) -> dict[str, str]:
+    """Pull NAV/AUM/etc. from Groww HTML where values live in divs, not <p> tags."""
+
+    metrics: dict[str, str] = {}
+    about = re.search(
+        r"Latest NAV as of\s+(\d{1,2})\s+"
+        r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+"
+        r"(\d{4})\s+is\s+(₹[\d,]+\.\d+)",
+        raw,
+        re.IGNORECASE,
+    )
+    if about:
+        metrics["nav_value"] = about.group(4).strip()
+        try:
+            metrics["nav_date"] = date(
+                int(about.group(3)),
+                _MONTHS[about.group(2)[:3].lower()],
+                int(about.group(1)),
+            ).isoformat()
+        except (ValueError, KeyError):
+            pass
+    if "nav_value" not in metrics:
+        near = re.search(
+            r"NAV:\s*.{0,240}?(₹[\d,]+\.\d+)",
+            raw,
+            re.IGNORECASE | re.DOTALL,
+        )
+        if near:
+            metrics["nav_value"] = near.group(1).strip()
+
+    aum = re.search(
+        r"Fund size\s*\(AUM\).{0,240}?(₹[\d,]+\.?\d*\s*Cr)",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if aum:
+        metrics["aum"] = re.sub(r"\s+", " ", aum.group(1)).strip()
+
+    expense = re.search(
+        r"Expense ratio.{0,200}?(\d+(?:\.\d+)?\s*%)",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if expense:
+        metrics["expense_ratio"] = expense.group(1).strip()
+
+    sip = re.search(
+        r"Min\.\s*for\s*SIP.{0,200}?(₹[\d,]+)",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if sip:
+        metrics["min_sip"] = sip.group(1).strip()
+
+    lumpsum = re.search(
+        r"Min\.\s*for\s*1st\s*investment.{0,200}?(₹[\d,]+)",
+        raw,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if lumpsum:
+        metrics["min_lumpsum"] = lumpsum.group(1).strip()
+
+    return metrics
 
 
 def _extract_hero_metrics(text: str, scheme_name: str) -> dict[str, str]:
@@ -215,7 +288,23 @@ def parse_artifact(
 
     sections = _sections_from_markdown(text)
     hero = _extract_hero_metrics(text, scheme_name)
-    nav_date = effective_date or _parse_nav_date(text)
+    html_metrics: dict[str, str] = {}
+    if content_format == "html":
+        # Groww SPA stores NAV/AUM in divs; BeautifulSoup text pass often drops them.
+        html_metrics = _extract_groww_html_metrics(raw)
+        for key, value in html_metrics.items():
+            if key == "nav_date":
+                continue
+            if value:
+                hero[key] = value
+    nav_date = effective_date
+    if nav_date is None and html_metrics.get("nav_date"):
+        try:
+            nav_date = date.fromisoformat(html_metrics["nav_date"])
+        except ValueError:
+            nav_date = None
+    if nav_date is None:
+        nav_date = _parse_nav_date(text) or _parse_nav_date(raw)
 
     return ParsedDocument(
         source_id=source_id,

@@ -30,6 +30,8 @@ Honest scope for the Mutual Fund FAQ Assistant (facts-only RAG over five Groww p
   live-fetches Groww; it reads the last promoted `data/` artifacts only.
 - Railway deploy uses **BM25-only** retrieval (`MF_RETRIEVAL_MODE=bm25`) to stay within
   Hobby RAM; local/dev keeps hybrid BM25 + dense + `bge-reranker-base`.
+- Fact answers come from the last promoted corpus (daily **corpus-refresh** + Railway
+  image rebuild). Chat never live-scrapes Groww at ask time.
 - Per-IP rate limit (~30 `/ask` calls per hour) bounds LLM cost.
 
 ## Advanced ratios

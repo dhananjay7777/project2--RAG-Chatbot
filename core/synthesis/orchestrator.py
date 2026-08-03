@@ -14,7 +14,7 @@ from core.synthesis.fact_lookup import lookup_fact_card
 from core.synthesis.llm import ChatCompleter
 from core.synthesis.deterministic import count_sentences
 from core.synthesis.models import SynthesisPath, SynthesisResult
-from core.synthesis.pipeline import fact_as_scored_chunk, synthesize_generative
+from core.synthesis.pipeline import fact_as_scored_chunk, synthesize_fact_card_with_llm, synthesize_generative
 from schemas.answer import AnswerRoute
 from schemas.fact_card import FactCard
 
@@ -99,11 +99,12 @@ def answer_query(
     fact = _lookup_fact(sanitized, processed_root)
     tags = infer_fact_tags(sanitized)
 
-    # Fast RAG path: known attribute Fact Card as sole CONTEXT → Groq.
+    # Fast path: verified Fact Card → Groq phrasing with full-value grounding
+    # (falls back to deterministic wording if the model drops NAV "as of" dates).
     if fact is not None and (not tags or fact.fact_key in tags):
-        result = synthesize_generative(
+        result = synthesize_fact_card_with_llm(
+            fact,
             sanitized,
-            [fact_as_scored_chunk(fact)],
             completer=completer,
         )
         result = _attach_fact_metadata(result, fact)

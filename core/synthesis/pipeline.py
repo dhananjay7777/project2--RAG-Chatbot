@@ -103,12 +103,15 @@ def synthesize_fact_card_with_llm(
     except Exception:
         return synthesize_fact_card(fact, query)
 
-    needle = (fact.value_text or "").split("(")[0].strip()
+    # Require the full verified value (including NAV "as of …" dates). Checking only
+    # the part before "(" let the LLM drop the as-of clause for some schemes.
+    needle = " ".join((fact.value_text or "").split()).strip()
+    answer_norm = " ".join((result.answer_text or "").split())
     if (
         result.insufficient_context
         or result.route != AnswerRoute.FACTUAL
-        or not (result.answer_text or "").strip()
-        or (needle and needle not in result.answer_text)
+        or not answer_norm
+        or (needle and needle not in answer_norm)
     ):
         return synthesize_fact_card(fact, query)
 

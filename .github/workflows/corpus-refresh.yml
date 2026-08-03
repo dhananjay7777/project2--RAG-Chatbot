@@ -51,6 +51,9 @@ jobs:
           playwright install --with-deps chromium
           python -m ingest.freshness refresh --headless --no-headless-fallback
 
+      - name: Sync fact seed from live facts
+        run: python scripts/sync_fact_seed_volatile.py
+
       - name: Summarize refresh
         run: |
           echo "### Corpus refresh" >> "$GITHUB_STEP_SUMMARY"
@@ -70,6 +73,17 @@ jobs:
           if [ -f data/raw/latest-live.json ]; then
             echo "- Live manifest: \`data/raw/latest-live.json\`" >> "$GITHUB_STEP_SUMMARY"
           fi
+          if [ -f data/processed/facts.jsonl ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          print("- Latest NAVs:")
+          for line in Path("data/processed/facts.jsonl").read_text(encoding="utf-8").splitlines():
+              row = json.loads(line)
+              if row.get("fact_key") == "nav":
+                  print(f"  - {row.get('scheme_name')}: {row.get('value_text')}")
+          PY
+          fi
 
       - name: Commit refreshed artifacts
         env:
@@ -78,7 +92,7 @@ jobs:
           GIT_COMMITTER_NAME: github-actions[bot]
           GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
-          git add -f data/raw data/processed data/index
+          git add -f data/raw data/processed data/index policy/fact_seed.yaml
           if git diff --cached --quiet; then
             echo "No corpus changes to commit."
             exit 0

@@ -162,6 +162,26 @@ def test_fact_card_llm_falls_back_when_value_dropped():
     assert "1.27%" in result.answer_text
 
 
+def test_fact_card_llm_falls_back_when_nav_as_of_dropped():
+    from core.synthesis.pipeline import synthesize_fact_card_with_llm
+
+    fact = FactCard(
+        fact_key="nav",
+        scheme_name="Nippon India Value Fund Direct Growth",
+        value_text="₹250.01 (as of 31 Jul 2026)",
+        source_id="groww-nippon-india-value-fund-direct-growth",
+        chunk_id="groww-nippon-india-value-fund-direct-growth#001",
+        effective_date=date(2026, 7, 31),
+        verified_by_human=True,
+    )
+    completer = MockCompleter(
+        "The NAV of Nippon India Value Fund Direct Growth is ₹250.01."
+    )
+    result = synthesize_fact_card_with_llm(fact, "NAV?", completer=completer)
+    assert result.used_llm is False
+    assert "₹250.01 (as of 31 Jul 2026)" in result.answer_text
+
+
 def test_answer_query_refusal_skips_llm():
     completer = MockCompleter("nope")
     result = answer_query(
