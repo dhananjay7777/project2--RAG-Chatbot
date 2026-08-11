@@ -1,37 +1,37 @@
 {
-  "run_at": "2026-08-10T05:54:57Z",
+  "run_at": "2026-08-11T05:35:13Z",
   "promotion_ready": true,
   "active_sources": 5,
   "headless_used": false,
   "sources": [
     {
       "source_id": "groww-franklin-india-multi-cap-fund-direct-growth",
-      "previous_sha256": "2ae9609548fa6075b580b3ed6cf583861c7663ed8f1340946cf0c91a32b2878e",
-      "new_sha256": "e0f56596dbd2b144bb991df50d92ca19c04f8d69d7ddfb30864597e953ad7061",
+      "previous_sha256": "e0f56596dbd2b144bb991df50d92ca19c04f8d69d7ddfb30864597e953ad7061",
+      "new_sha256": "f8d645bb1ae26c38c95539b6c73a3e5c63d375456b8c79d08702eac2896f7194",
       "changed": true
     },
     {
       "source_id": "groww-kotak-multi-asset-allocation-fund-direct-growth",
-      "previous_sha256": "cc591167f6529d5242a58119a569d6578710cfc6d4132711e0e9648985e610bc",
-      "new_sha256": "74834e1b4905b5cd25ebce404b4762da712eab58557fcc1ab11a714a8a6da5f8",
+      "previous_sha256": "74834e1b4905b5cd25ebce404b4762da712eab58557fcc1ab11a714a8a6da5f8",
+      "new_sha256": "03145c05f18b6ffc271a9c87e71c5d6f8978d4c3c2dcfe4a4379175ec878a3d0",
       "changed": true
     },
     {
       "source_id": "groww-nippon-india-value-fund-direct-growth",
-      "previous_sha256": "1c3dfb14c98e9fd0177455f16458035bb7bf255f41dc4b3c4aa6adbb61ad5c03",
-      "new_sha256": "eb4c1c9c29a35499540a016b9583cc1867f318e0061957f5bf9afbc64e4617cb",
+      "previous_sha256": "eb4c1c9c29a35499540a016b9583cc1867f318e0061957f5bf9afbc64e4617cb",
+      "new_sha256": "4b2c237e145dc315c07db7a376ce341c5c1f149fbaf71c94d60578fb9816f243",
       "changed": true
     },
     {
       "source_id": "groww-samco-mid-cap-fund-direct-growth",
-      "previous_sha256": "4d602193f539d7da50d5590af9afe316bd21cda2581e53bdf8f559fa6b44a86e",
-      "new_sha256": "24a828f630cca268bb8de82d2e7a8055c7567538d7ba2f5c7a3de61198d21ac0",
+      "previous_sha256": "24a828f630cca268bb8de82d2e7a8055c7567538d7ba2f5c7a3de61198d21ac0",
+      "new_sha256": "84ad69883b5b5b95516ce52df420af24aad222a15a4e0ef55cd4ea38075eeff8",
       "changed": true
     },
     {
       "source_id": "groww-tata-multi-asset-allocation-fund-direct-growth",
-      "previous_sha256": "52d8ba5b59a597fe0ec7d7aa6eabc81b6e70b1001d00e002fbc0b909cdeb9130",
-      "new_sha256": "7f45b57a1dd9c76c98d64edc148a3c1174e3162931d6ae1aca42f3ef2bff948c",
+      "previous_sha256": "7f45b57a1dd9c76c98d64edc148a3c1174e3162931d6ae1aca42f3ef2bff948c",
+      "new_sha256": "db3a8f33037f10b3cde942cade20f0fe27e9a71c0b5b8bb54f8c6988b88852e1",
       "changed": true
     }
   ],
