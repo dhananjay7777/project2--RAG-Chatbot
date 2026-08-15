@@ -1,6 +1,6 @@
 {
-  "run_id": "20260814T055440Z-660a067a",
-  "generated_at": "2026-08-14T05:54:40.484597Z",
+  "run_id": "20260815T045606Z-e5b6643e",
+  "generated_at": "2026-08-15T04:56:06.762459Z",
   "promotion_ready": true,
   "records": [
     {
@@ -15,19 +15,19 @@
           "Nippon India Value Fund Direct Growth"
         ],
         "isin": [],
-        "effective_date": "2026-08-13",
-        "fetched_at": "2026-08-14T05:54:31.644690Z",
-        "content_sha256": "c81a0233b564b97aab9a23603b362f24d170cee186642911d5c89918d1cda427",
+        "effective_date": "2026-08-14",
+        "fetched_at": "2026-08-15T04:55:57.914178Z",
+        "content_sha256": "deef6728af58abe0993166d00916a82d911078b1ea3a68fd4543f7e7e23ba1ab",
         "parser_version": "1.0.0",
         "status": "active",
-        "supersedes": "groww-nippon-india-value-fund-direct-growth@2afa0c31cd2c",
-        "artifact_path": "groww-nippon-india-value-fund-direct-growth/c81a0233b564b97aab9a23603b362f24d170cee186642911d5c89918d1cda427.html",
+        "supersedes": "groww-nippon-india-value-fund-direct-growth@c81a0233b564",
+        "artifact_path": "groww-nippon-india-value-fund-direct-growth/deef6728af58abe0993166d00916a82d911078b1ea3a68fd4543f7e7e23ba1ab.html",
         "fetch_mode": "http",
         "final_url": "https://groww.in/mutual-funds/nippon-india-value-fund-direct-growth",
         "last_error": null
       },
       "changed": true,
-      "previous_content_sha256": "2afa0c31cd2c91f2f701a8ccd12d34e5cf6d42d50e91f1d84886e8d5e46200a9"
+      "previous_content_sha256": "c81a0233b564b97aab9a23603b362f24d170cee186642911d5c89918d1cda427"
     },
     {
       "source": {
@@ -41,19 +41,19 @@
           "Tata Multi Asset Allocation Fund Direct Growth"
         ],
         "isin": [],
-        "effective_date": "2026-08-13",
-        "fetched_at": "2026-08-14T05:54:32.407398Z",
-        "content_sha256": "24976546fb403221781cff1abeddce08f8afce806c1ee465e4935fed9a55682b",
+        "effective_date": "2026-08-14",
+        "fetched_at": "2026-08-15T04:55:58.784173Z",
+        "content_sha256": "866acc42fd5185b03dc3ea725abe25257cb1ca0d76df803b1a696614e9c9b5ea",
         "parser_version": "1.0.0",
         "status": "active",
-        "supersedes": "groww-tata-multi-asset-allocation-fund-direct-growth@32cd5b42a197",
-        "artifact_path": "groww-tata-multi-asset-allocation-fund-direct-growth/24976546fb403221781cff1abeddce08f8afce806c1ee465e4935fed9a55682b.html",
+        "supersedes": "groww-tata-multi-asset-allocation-fund-direct-growth@24976546fb40",
+        "artifact_path": "groww-tata-multi-asset-allocation-fund-direct-growth/866acc42fd5185b03dc3ea725abe25257cb1ca0d76df803b1a696614e9c9b5ea.html",
         "fetch_mode": "http",
         "final_url": "https://groww.in/mutual-funds/tata-multi-asset-allocation-fund-direct-growth",
         "last_error": null
       },
       "changed": true,
-      "previous_content_sha256": "32cd5b42a197b0ff2ed28da4925c46ebdddb04936029fabb9f92df24220d9a29"
+      "previous_content_sha256": "24976546fb403221781cff1abeddce08f8afce806c1ee465e4935fed9a55682b"
     },
     {
       "source": {
@@ -67,19 +67,19 @@
           "Kotak Multi Asset Allocation Fund Direct Growth"
         ],
         "isin": [],
-        "effective_date": "2026-08-13",
-        "fetched_at": "2026-08-14T05:54:34.670262Z",
-        "content_sha256": "0d96521bad3c6e11ea8c5bea205a80345539c3f61d5fe1db09bf47edb9fc8f72",
+        "effective_date": "2026-08-14",
+        "fetched_at": "2026-08-15T04:56:00.954333Z",
+        "content_sha256": "a280b9b15b481c53d1fa4ec006f840b4517f3b1bcb439553f6badcc0cab6e10b",
         "parser_version": "1.0.0",
         "status": "active",
-        "supersedes": "groww-kotak-multi-asset-allocation-fund-direct-growth@a91c08202467",
-        "artifact_path": "groww-kotak-multi-asset-allocation-fund-direct-growth/0d96521bad3c6e11ea8c5bea205a80345539c3f61d5fe1db09bf47edb9fc8f72.html",
+        "supersedes": "groww-kotak-multi-asset-allocation-fund-direct-growth@0d96521bad3c",
+        "artifact_path": "groww-kotak-multi-asset-allocation-fund-direct-growth/a280b9b15b481c53d1fa4ec006f840b4517f3b1bcb439553f6badcc0cab6e10b.html",
         "fetch_mode": "http",
         "final_url": "https://groww.in/mutual-funds/kotak-multi-asset-allocation-fund-direct-growth",
         "last_error": null
       },
       "changed": true,
-      "previous_content_sha256": "a91c08202467d0fbf42e9be46ce46edd55050189c4eefa4506004da54bb07e6c"
+      "previous_content_sha256": "0d96521bad3c6e11ea8c5bea205a80345539c3f61d5fe1db09bf47edb9fc8f72"
     },
     {
       "source": {
@@ -93,19 +93,19 @@
           "Franklin India Multi Cap Fund Direct Growth"
         ],
         "isin": [],
-        "effective_date": "2026-08-13",
-        "fetched_at": "2026-08-14T05:54:36.486188Z",
-        "content_sha256": "8bfe3ec37c2016c64d6c26bad8d6453c96b3e9d8ecaa1055d7b6889c4c5c06c0",
+        "effective_date": "2026-08-14",
+        "fetched_at": "2026-08-15T04:56:02.844830Z",
+        "content_sha256": "12d2824a99ba05acf91e76579e335b98e483169a4a54f8267180c660a05719d0",
         "parser_version": "1.0.0",
         "status": "active",
-        "supersedes": "groww-franklin-india-multi-cap-fund-direct-growth@fd3034fed3fe",
-        "artifact_path": "groww-franklin-india-multi-cap-fund-direct-growth/8bfe3ec37c2016c64d6c26bad8d6453c96b3e9d8ecaa1055d7b6889c4c5c06c0.html",
+        "supersedes": "groww-franklin-india-multi-cap-fund-direct-growth@8bfe3ec37c20",
+        "artifact_path": "groww-franklin-india-multi-cap-fund-direct-growth/12d2824a99ba05acf91e76579e335b98e483169a4a54f8267180c660a05719d0.html",
         "fetch_mode": "http",
         "final_url": "https://groww.in/mutual-funds/franklin-india-multi-cap-fund-direct-growth",
         "last_error": null
       },
       "changed": true,
-      "previous_content_sha256": "fd3034fed3feee85718917696c81f9fd8eba20d955248738dd6abba2e4339b9e"
+      "previous_content_sha256": "8bfe3ec37c2016c64d6c26bad8d6453c96b3e9d8ecaa1055d7b6889c4c5c06c0"
     },
     {
       "source": {
@@ -119,19 +119,19 @@
           "Samco Mid Cap Fund Direct Growth"
         ],
         "isin": [],
-        "effective_date": "2026-08-13",
-        "fetched_at": "2026-08-14T05:54:38.390675Z",
-        "content_sha256": "4509ea2943257b96ecb31303433be342299f36ffb62786162789438b9c0fc1f1",
+        "effective_date": "2026-08-14",
+        "fetched_at": "2026-08-15T04:56:04.716669Z",
+        "content_sha256": "970099cdcfb1db6f42729ae44b86d87635c74d4219ee3fb05638da783ea2ae57",
         "parser_version": "1.0.0",
         "status": "active",
-        "supersedes": "groww-samco-mid-cap-fund-direct-growth@b4d99a1cd754",
-        "artifact_path": "groww-samco-mid-cap-fund-direct-growth/4509ea2943257b96ecb31303433be342299f36ffb62786162789438b9c0fc1f1.html",
+        "supersedes": "groww-samco-mid-cap-fund-direct-growth@4509ea294325",
+        "artifact_path": "groww-samco-mid-cap-fund-direct-growth/970099cdcfb1db6f42729ae44b86d87635c74d4219ee3fb05638da783ea2ae57.html",
         "fetch_mode": "http",
         "final_url": "https://groww.in/mutual-funds/samco-mid-cap-fund-direct-growth",
         "last_error": null
       },
       "changed": true,
-      "previous_content_sha256": "b4d99a1cd754456f9f145c60a255c9e575a9b2f8fe0b7dc70bba9e47cdf8368a"
+      "previous_content_sha256": "4509ea2943257b96ecb31303433be342299f36ffb62786162789438b9c0fc1f1"
     }
   ]
 }
