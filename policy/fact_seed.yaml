@@ -76,7 +76,7 @@ schemes:
   groww-tata-multi-asset-allocation-fund-direct-growth:
     scheme_name: Tata Multi Asset Allocation Fund Direct Growth
     facts:
-      expense_ratio: "0.64%"
+      expense_ratio: "0.65%"
       exit_load: "#### Stamp duty on investment: 0.005% (from July 1st, 2020)"
       min_sip: "₹100"
       min_lumpsum: "₹5,000"
