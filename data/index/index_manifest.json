@@ -1,7 +1,7 @@
 {
   "embedding_model": "BAAI/bge-small-en-v1.5",
   "chunk_count": 24,
-  "built_at": "2026-10-05T11:44:59.077363Z",
+  "built_at": "2026-10-06T11:27:09.933858Z",
   "records": {
     "groww-nippon-india-value-fund-direct-growth#001": "6384cd0e91a2e2af95143696412fef11533358f573943f80772826101e9e96df",
     "groww-nippon-india-value-fund-direct-growth#002": "924d6b579e5259ea6837055a02b4d7df030a8c27aaf5fc98756943a17dcc987d",
@@ -11,21 +11,21 @@
     "groww-tata-multi-asset-allocation-fund-direct-growth#002": "924d6b579e5259ea6837055a02b4d7df030a8c27aaf5fc98756943a17dcc987d",
     "groww-tata-multi-asset-allocation-fund-direct-growth#003": "88903b72337c5a22444b4013a1c581781cdf26c5d2f18a75bbf1d1cea81e6479",
     "groww-tata-multi-asset-allocation-fund-direct-growth#004": "166545d531b120bfb6a2c876bd972aa42dfe967316a96a1706bc216f38284096",
-    "groww-tata-multi-asset-allocation-fund-direct-growth#005": "9f528bb43cc5a41ebdb9fef6041739fe85907113617645962fa177eec20b71f2",
+    "groww-tata-multi-asset-allocation-fund-direct-growth#005": "1612c3e7f861f9a12c4380113e20dfe971792eea88af1f0f46d938220fcf258a",
     "groww-kotak-multi-asset-allocation-fund-direct-growth#001": "6384cd0e91a2e2af95143696412fef11533358f573943f80772826101e9e96df",
     "groww-kotak-multi-asset-allocation-fund-direct-growth#002": "924d6b579e5259ea6837055a02b4d7df030a8c27aaf5fc98756943a17dcc987d",
     "groww-kotak-multi-asset-allocation-fund-direct-growth#003": "88903b72337c5a22444b4013a1c581781cdf26c5d2f18a75bbf1d1cea81e6479",
     "groww-kotak-multi-asset-allocation-fund-direct-growth#004": "166545d531b120bfb6a2c876bd972aa42dfe967316a96a1706bc216f38284096",
-    "groww-kotak-multi-asset-allocation-fund-direct-growth#005": "9f528bb43cc5a41ebdb9fef6041739fe85907113617645962fa177eec20b71f2",
+    "groww-kotak-multi-asset-allocation-fund-direct-growth#005": "1612c3e7f861f9a12c4380113e20dfe971792eea88af1f0f46d938220fcf258a",
     "groww-franklin-india-multi-cap-fund-direct-growth#001": "6384cd0e91a2e2af95143696412fef11533358f573943f80772826101e9e96df",
     "groww-franklin-india-multi-cap-fund-direct-growth#002": "924d6b579e5259ea6837055a02b4d7df030a8c27aaf5fc98756943a17dcc987d",
     "groww-franklin-india-multi-cap-fund-direct-growth#003": "88903b72337c5a22444b4013a1c581781cdf26c5d2f18a75bbf1d1cea81e6479",
     "groww-franklin-india-multi-cap-fund-direct-growth#004": "166545d531b120bfb6a2c876bd972aa42dfe967316a96a1706bc216f38284096",
-    "groww-franklin-india-multi-cap-fund-direct-growth#005": "54318133ac66c639bbf346cb043fe3e4283b83035f55b5fac7b46c088bbad4e3",
+    "groww-franklin-india-multi-cap-fund-direct-growth#005": "a6cf321cf09f841840e14da670e5dd710fc20c79df3ac0e5e0ed73fb541bd917",
     "groww-samco-mid-cap-fund-direct-growth#001": "6384cd0e91a2e2af95143696412fef11533358f573943f80772826101e9e96df",
     "groww-samco-mid-cap-fund-direct-growth#002": "924d6b579e5259ea6837055a02b4d7df030a8c27aaf5fc98756943a17dcc987d",
     "groww-samco-mid-cap-fund-direct-growth#003": "88903b72337c5a22444b4013a1c581781cdf26c5d2f18a75bbf1d1cea81e6479",
     "groww-samco-mid-cap-fund-direct-growth#004": "166545d531b120bfb6a2c876bd972aa42dfe967316a96a1706bc216f38284096",
-    "groww-samco-mid-cap-fund-direct-growth#005": "abbaa031b2ceb354143df184b93b9c6d9e20f798d25b2814971b4c37210ccb27"
+    "groww-samco-mid-cap-fund-direct-growth#005": "22eac806fbc3f0afc04ba6c9d4f1cdd1c4deda4d1a3140262e272df8df766e72"
   }
 }
